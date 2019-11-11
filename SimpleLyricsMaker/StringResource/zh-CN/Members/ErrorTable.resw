@@ -120,11 +120,11 @@
   <data name="EmailTitle" xml:space="preserve">
     <value>错误报告</value>
   </data>
-  <data name="ErrorInfo" xml:space="preserve">
-    <value>错误信息： </value>
-  </data>
   <data name="LoggingInfo" xml:space="preserve">
     <value>日志信息：</value>
+  </data>
+  <data name="StackInfo" xml:space="preserve">
+    <value>堆栈信息：</value>
   </data>
   <data name="SystemVersion" xml:space="preserve">
     <value>系统版本：</value>

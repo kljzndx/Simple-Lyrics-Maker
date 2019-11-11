@@ -22,7 +22,7 @@ namespace SimpleLyricsMaker.ViewModels.Extensions
         private static readonly string ErrorMessage;
         private static readonly string LoggingInfo;
         private static readonly string SystemVersion;
-        private static readonly string ErrorInfo;
+        private static readonly string StackInfo;
 
         static ExceptionExtension()
         {
@@ -33,14 +33,14 @@ namespace SimpleLyricsMaker.ViewModels.Extensions
             DialogTitle = errorDialog_StringResource.GetString("Title");
             SendErrorReport = errorDialog_StringResource.GetString("SendErrorReport");
             DialogClose = dialog_StringResource.GetString("Close");
-            EmailTitle = errorTable_StringResource.GetString("EmailTitle");
 
             ErrorCode = errorDialog_StringResource.GetString("ErrorCode");
             ErrorMessage = errorDialog_StringResource.GetString("ErrorMessage");
 
+            EmailTitle = errorTable_StringResource.GetString("EmailTitle");
             LoggingInfo = errorTable_StringResource.GetString("LoggingInfo");
             SystemVersion = errorTable_StringResource.GetString("SystemVersion");
-            ErrorInfo = errorTable_StringResource.GetString("ErrorInfo");
+            StackInfo = errorTable_StringResource.GetString("StackInfo");
         }
 
         public static async Task ShowErrorDialog(this Exception exception, Logger logger = null)
@@ -59,7 +59,7 @@ namespace SimpleLyricsMaker.ViewModels.Extensions
             if (needSendEmail)
             {
                 string title = $"{AppInfo.Name} {AppInfo.Version} {EmailTitle}";
-                string body = $"{SystemVersion} {SystemInfo.BuildVersion}\r\n{ErrorCode} 0x{exception.HResult:x8}\r\n{ErrorMessage} {exception.Message}\r\n{ErrorInfo}\r\n{exception.ToString()}\r\n{LoggingInfo}\r\n{await LoggerService.ReadLogs(20)}";
+                string body = $"{SystemVersion} {SystemInfo.BuildVersion}\r\n{ErrorCode} 0x{exception.HResult:x8}\r\n{ErrorMessage} {exception.Message}\r\n{StackInfo}\r\n{exception.ToString()}\r\n{LoggingInfo}\r\n{await LoggerService.ReadLogs(20)}";
 
                 await EmailEx.SendAsync(Email, title, body);
             }

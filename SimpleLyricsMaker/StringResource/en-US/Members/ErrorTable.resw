@@ -120,11 +120,11 @@
   <data name="EmailTitle" xml:space="preserve">
     <value>Error report</value>
   </data>
-  <data name="ErrorInfo" xml:space="preserve">
-    <value>Error info: </value>
-  </data>
   <data name="LoggingInfo" xml:space="preserve">
     <value>Logging info: </value>
+  </data>
+  <data name="StackInfo" xml:space="preserve">
+    <value>Stack info: </value>
   </data>
   <data name="SystemVersion" xml:space="preserve">
     <value>System version: </value>

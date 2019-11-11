@@ -35,13 +35,7 @@ namespace SimpleLyricsMaker.Logs
 
             var lines = await FileIO.ReadLinesAsync(file);
 
-            StringBuilder builder = new StringBuilder();
-
-            for (int i = 0; i < maxLines; i++)
-                if (lines.Any())
-                    builder.AppendLine(lines[lines.Count - (i + 1)]);
-
-            return builder.ToString().Trim();
+            return String.Join("\r\n", lines.Take(maxLines));
         }
     }
 }

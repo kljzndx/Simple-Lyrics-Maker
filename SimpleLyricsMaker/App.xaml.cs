@@ -56,6 +56,7 @@ namespace SimpleLyricsMaker
             // 只需确保窗口处于活动状态
             if (rootFrame == null)
             {
+                _appLogger.Info("初始化界面框架");
                 // 创建要充当导航上下文的框架，并导航到第一页
                 rootFrame = new Frame();
 
@@ -66,6 +67,7 @@ namespace SimpleLyricsMaker
                     //TODO: 从之前挂起的应用程序加载状态
                 }
 
+                _appLogger.Info("给窗口内容设置页面框架");
                 // 将框架放在当前窗口中
                 Window.Current.Content = rootFrame;
             }
@@ -77,12 +79,15 @@ namespace SimpleLyricsMaker
                     // 当导航堆栈尚未还原时，导航到第一页，
                     // 并通过将所需信息作为导航参数传入来配置
                     // 参数
+                    _appLogger.Info("正在跳转主页面");
                     rootFrame.Navigate(typeof(MainPage), e.Arguments);
                 }
+
                 // 确保当前窗口处于活动状态
                 Window.Current.Activate();
 
                 LogExtension.SetupLogger(this.GetType().Assembly, LoggerMembers.Ui);
+                _appLogger.Info("启动流程执行完成");
             }
         }
 

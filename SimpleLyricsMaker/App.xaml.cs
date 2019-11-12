@@ -14,6 +14,11 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using NLog;
+using NLog.Fluent;
+using SimpleLyricsMaker.Logs;
+using SimpleLyricsMaker.Logs.Models;
+using SimpleLyricsMaker.ViewModels.Extensions;
 using SimpleLyricsMaker.Views;
 
 namespace SimpleLyricsMaker
@@ -23,6 +28,8 @@ namespace SimpleLyricsMaker
     /// </summary>
     sealed partial class App : Application
     {
+        private readonly Logger _appLogger;
+
         /// <summary>
         /// 初始化单一实例应用程序对象。这是执行的创作代码的第一行，
         /// 已执行，逻辑上等同于 main() 或 WinMain()。
@@ -31,6 +38,9 @@ namespace SimpleLyricsMaker
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            this.UnhandledException += App_UnhandledException;
+
+            _appLogger = LoggerService.GetLogger(LoggerMembers.App);
         }
 
         /// <summary>
@@ -71,6 +81,8 @@ namespace SimpleLyricsMaker
                 }
                 // 确保当前窗口处于活动状态
                 Window.Current.Activate();
+
+                LogExtension.SetupLogger(this.GetType().Assembly, LoggerMembers.Ui);
             }
         }
 
@@ -96,6 +108,12 @@ namespace SimpleLyricsMaker
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: 保存应用程序状态并停止任何后台活动
             deferral.Complete();
+        }
+
+        private async void App_UnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
+        {
+            e.Handled = true;
+            await e.Exception.ShowErrorDialog(_appLogger);
         }
     }
 }

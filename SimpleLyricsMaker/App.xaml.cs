@@ -80,7 +80,7 @@ namespace SimpleLyricsMaker
                     // 并通过将所需信息作为导航参数传入来配置
                     // 参数
                     _appLogger.Info("正在跳转主页面");
-                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                    rootFrame.Navigate(typeof(UIFramework), e.Arguments);
                 }
 
                 // 确保当前窗口处于活动状态

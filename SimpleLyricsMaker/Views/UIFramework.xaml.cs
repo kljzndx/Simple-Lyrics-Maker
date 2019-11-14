@@ -33,7 +33,10 @@ namespace SimpleLyricsMaker.Views
         {
             PageModel pm = e.AddedItems.FirstOrDefault() as PageModel;
             if (pm?.PageType != null)
+            {
+                this.LogByObject("切换页面");
                 Main_Frame.Navigate(pm.PageType);
+            }
         }
     }
 }

@@ -6,5 +6,12 @@
 
     <Application.Resources>
         <vm:ViewModelLocator x:Key="Locator"/>
+        <Style x:Key="ControlButtonStyle" TargetType="ButtonBase">
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+        </Style>
     </Application.Resources>
 </Application>

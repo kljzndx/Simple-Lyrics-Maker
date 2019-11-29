@@ -11,7 +11,7 @@ namespace SimpleLyricsMaker.ViewModels
         {
             PagesList = new ObservableCollection<PageModel>
             {
-                new PageModel('\uE142', "信息编辑", null),
+                new PageModel('\uE142', "信息编辑", typeof(EditPage)),
                 new PageModel('\uE15E', "字幕打点", null),
                 new PageModel('\uE052', "完成预览", null),
             };

@@ -8,7 +8,7 @@
     mc:Ignorable="d"
     DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
 
-    <SplitView x:Name="Root_SplitView" PanePlacement="Left" DisplayMode="CompactOverlay" CompactPaneLength="47">
+    <SplitView x:Name="Root_SplitView" PanePlacement="Left" DisplayMode="Overlay" CompactPaneLength="47">
         <SplitView.Pane>
             <Grid>
                 <Grid.RowDefinitions>

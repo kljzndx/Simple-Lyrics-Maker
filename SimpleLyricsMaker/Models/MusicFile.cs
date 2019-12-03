@@ -55,6 +55,24 @@ namespace SimpleLyricsMaker.Models
             });
         }
 
+        public override bool Equals(object obj)
+        {
+            if (obj is MusicFile mf)
+                return this.Equals(mf);
+
+            return false;
+        }
+
+        protected bool Equals(MusicFile other)
+        {
+            return FilePath == other.FilePath;
+        }
+
+        public override int GetHashCode()
+        {
+            return (FilePath != null ? FilePath.GetHashCode() : 0);
+        }
+
         public static async Task<MusicFile> Create(StorageFile file)
         {
             return new MusicFile(file, await file.Properties.GetMusicPropertiesAsync());

@@ -58,6 +58,7 @@
                     </Style>
                 </StackPanel.Resources>
 
+                <Button Content="Open file" Command="{Binding OpenFileCommand}"/>
                 <Button Content="Open folder" Command="{Binding OpenFolderCommand}"/>
 
             </StackPanel>

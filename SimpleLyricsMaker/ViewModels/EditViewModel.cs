@@ -19,6 +19,7 @@ namespace SimpleLyricsMaker.ViewModels
 {
     public class EditViewModel : ViewModelBase
     {
+        private static readonly string[] allExtensionNames;
         private bool _canOpen = true;
 
         private StorageFolder _folder;
@@ -26,15 +27,28 @@ namespace SimpleLyricsMaker.ViewModels
         private List<MusicFile> _allFiles;
         private List<MusicFile> _noLyricFiles;
 
+        private MusicFile _currentFile;
         private ObservableCollection<MusicFile> _displayFilesList;
+
+        static EditViewModel()
+        {
+            allExtensionNames = new[] {".lrc", ".mp3", ".aac", ".flac", ".alac", ".m4a", ".wav"};
+        }
 
         public EditViewModel()
         {
+            OpenFileCommand = new RelayCommand(async () => await OpenFile(), () => _canOpen);
             OpenFolderCommand = new RelayCommand(async () => await OpenFolder(), () => _canOpen);
 
             Messenger.Default.Register<string>(this, MessageTokens.FolderOpened, async msg => await ScanFile(_folder));
             Messenger.Default.Register<string>(this, MessageTokens.FileScanning, msg => DisplayFilesList = null);
             Messenger.Default.Register<string>(this, MessageTokens.FileScanned, msg => ShowFiles(false));
+        }
+
+        public MusicFile CurrentFile
+        {
+            get => _currentFile;
+            set => Set(ref _currentFile, value);
         }
 
         public ObservableCollection<MusicFile> DisplayFilesList
@@ -43,12 +57,41 @@ namespace SimpleLyricsMaker.ViewModels
             set => Set(ref _displayFilesList, value);
         }
 
+        public RelayCommand OpenFileCommand { get; }
         public RelayCommand OpenFolderCommand { get; }
+
+        public async Task OpenFile()
+        {
+            _canOpen = false;
+            OpenFileCommand.RaiseCanExecuteChanged();
+            OpenFolderCommand.RaiseCanExecuteChanged();
+
+            var picker = new FileOpenPicker();
+            picker.SuggestedStartLocation = PickerLocationId.MusicLibrary;
+            foreach (var name in allExtensionNames.Skip(1))
+                picker.FileTypeFilter.Add(name);
+
+            var file = await picker.PickSingleFileAsync();
+            if (file != null)
+            {
+                var mf = await MusicFile.Create(file);
+                CurrentFile = mf;
+                DisplayFilesList?.Insert(0, mf);
+                Messenger.Default.Send(mf.FileName, MessageTokens.FilePicked);
+            }
+
+            _canOpen = true;
+            OpenFileCommand.RaiseCanExecuteChanged();
+            OpenFolderCommand.RaiseCanExecuteChanged();
+        }
+
+        #region Explorer
 
         public async Task OpenFolder()
         {
             _canOpen = false;
             OpenFolderCommand.RaiseCanExecuteChanged();
+            OpenFileCommand.RaiseCanExecuteChanged();
 
             this.LogByObject("正在打开文件夹选取器");
             var picker = new FolderPicker();
@@ -65,6 +108,7 @@ namespace SimpleLyricsMaker.ViewModels
 
             _canOpen = true;
             OpenFolderCommand.RaiseCanExecuteChanged();
+            OpenFileCommand.RaiseCanExecuteChanged();
         }
 
         public async Task ScanFile(StorageFolder folder)
@@ -77,7 +121,7 @@ namespace SimpleLyricsMaker.ViewModels
             this.LogByObject("开始扫描文件夹");
             Messenger.Default.Send(folder.Name, MessageTokens.FileScanning);
 
-            QueryOptions queryOptions = new QueryOptions(CommonFileQuery.OrderByName, ".lrc .mp3 .aac .flac .alac .m4a .wav".Split(' '));
+            QueryOptions queryOptions = new QueryOptions(CommonFileQuery.OrderByName, allExtensionNames);
             queryOptions.FolderDepth = FolderDepth.Shallow;
             var queryResult = folder.CreateFileQueryWithOptions(queryOptions);
 
@@ -104,5 +148,7 @@ namespace SimpleLyricsMaker.ViewModels
         {
             DisplayFilesList = new ObservableCollection<MusicFile>(showAll ? _allFiles : _noLyricFiles);
         }
+
+        #endregion
     }
 }

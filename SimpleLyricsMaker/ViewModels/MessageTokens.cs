@@ -2,6 +2,7 @@
 {
     public enum MessageTokens
     {
+        FilePicked,
         FolderOpened,
         FileScanning,
         FileScanned,

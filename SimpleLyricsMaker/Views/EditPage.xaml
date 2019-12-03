@@ -38,11 +38,29 @@
 
                     <CheckBox x:Name="ShowAllFile_CheckBox" Content="Show all music file" HorizontalAlignment="Right"/>
 
-                    <ListView x:Name="MusicFiles_ListView" Grid.Row="1">
-
+                    <ListView x:Name="MusicFiles_ListView" Grid.Row="1" ItemsSource="{Binding DisplayFilesList, Mode=OneWay}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding FileName}"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
                     </ListView>
                 </Grid>
             </Grid>
         </SplitView.Pane>
+
+        <Grid>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="Width" Value="200"/>
+                        <Setter Property="Margin" Value="12"/>
+                    </Style>
+                </StackPanel.Resources>
+
+                <Button Content="Open folder" Command="{Binding OpenFolderCommand}"/>
+
+            </StackPanel>
+        </Grid>
     </SplitView>
 </Page>

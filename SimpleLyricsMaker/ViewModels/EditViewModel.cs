@@ -39,6 +39,8 @@ namespace SimpleLyricsMaker.ViewModels
         {
             OpenFileCommand = new RelayCommand(async () => await OpenFile(), () => _canOpen);
             OpenFolderCommand = new RelayCommand(async () => await OpenFolder(), () => _canOpen);
+            RefreshCommand = new RelayCommand(async () => await ScanFile(_folder));
+            SwitchDisplayCommand = new RelayCommand<bool?>(b => ShowFiles(b ?? false));
 
             Messenger.Default.Register<string>(this, MessageTokens.FolderOpened, async msg => await ScanFile(_folder));
             Messenger.Default.Register<string>(this, MessageTokens.FileScanning, msg =>
@@ -63,6 +65,8 @@ namespace SimpleLyricsMaker.ViewModels
 
         public RelayCommand OpenFileCommand { get; }
         public RelayCommand OpenFolderCommand { get; }
+        public RelayCommand RefreshCommand { get; }
+        public RelayCommand<bool?> SwitchDisplayCommand { get; }
 
         public async Task OpenFile()
         {

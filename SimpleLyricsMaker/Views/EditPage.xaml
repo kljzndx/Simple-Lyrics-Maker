@@ -10,7 +10,7 @@
     mc:Ignorable="d"
     DataContext="{Binding Source={StaticResource Locator}, Path=Edit}">
 
-    <SplitView IsPaneOpen="True" DisplayMode="Inline">
+    <SplitView x:Name="Root_SplitView" DisplayMode="Inline">
         <SplitView.Pane>
             <Grid>
                 <Grid.RowDefinitions>
@@ -25,7 +25,7 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBox x:Name="Search_TextBox"/>
-                    <Button x:Name="Refresh_Button" Grid.Column="1" Style="{StaticResource ControlButtonStyle}">
+                    <Button x:Name="Refresh_Button" Grid.Column="1" Command="{Binding RefreshCommand}" Style="{StaticResource ControlButtonStyle}">
                         <FontIcon Glyph="&#xE117;"/>
                     </Button>
                 </Grid>
@@ -36,7 +36,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
 
-                    <CheckBox x:Name="ShowAllFile_CheckBox" Content="Show all music file" HorizontalAlignment="Right"/>
+                    <CheckBox x:Name="ShowAllFile_CheckBox" Content="Show all music file" Command="{Binding SwitchDisplayCommand}" CommandParameter="{Binding ElementName=ShowAllFile_CheckBox, Path=IsChecked}" HorizontalAlignment="Right"/>
 
                     <ListView x:Name="MusicFiles_ListView" Grid.Row="1" SelectedItem="{Binding CurrentFile, Mode=TwoWay}" ItemsSource="{Binding DisplayFilesList, Mode=OneWay}">
                         <ListView.ItemTemplate>

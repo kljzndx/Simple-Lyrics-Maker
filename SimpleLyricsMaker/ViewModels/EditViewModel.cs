@@ -41,7 +41,11 @@ namespace SimpleLyricsMaker.ViewModels
             OpenFolderCommand = new RelayCommand(async () => await OpenFolder(), () => _canOpen);
 
             Messenger.Default.Register<string>(this, MessageTokens.FolderOpened, async msg => await ScanFile(_folder));
-            Messenger.Default.Register<string>(this, MessageTokens.FileScanning, msg => DisplayFilesList = null);
+            Messenger.Default.Register<string>(this, MessageTokens.FileScanning, msg =>
+            {
+                CurrentFile = null;
+                DisplayFilesList = null;
+            });
             Messenger.Default.Register<string>(this, MessageTokens.FileScanned, msg => ShowFiles(false));
         }
 
@@ -74,9 +78,17 @@ namespace SimpleLyricsMaker.ViewModels
             var file = await picker.PickSingleFileAsync();
             if (file != null)
             {
-                var mf = await MusicFile.Create(file);
+                var mf = DisplayFilesList?.FirstOrDefault(f => f.FilePath == file.Path);
+
+                if (mf == null)
+                {
+                    mf = await MusicFile.Create(file);
+
+                    DisplayFilesList?.Insert(0, mf);
+                }
+
                 CurrentFile = mf;
-                DisplayFilesList?.Insert(0, mf);
+
                 Messenger.Default.Send(mf.FileName, MessageTokens.FilePicked);
             }
 

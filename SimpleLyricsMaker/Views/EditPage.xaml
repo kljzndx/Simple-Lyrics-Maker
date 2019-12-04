@@ -45,6 +45,16 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
+
+                    <StackPanel x:Name="FileScanning_StackPanel" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <ProgressRing x:Name="FileScanning_ProgressRing" Width="100" Height="100"/>
+
+                        <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}">
+                            <Run Text="Scanning"/>
+                            <Run x:Name="Folder_Run"/>
+                            <Run Text="folder"/>
+                        </TextBlock>
+                    </StackPanel>
                 </Grid>
             </Grid>
         </SplitView.Pane>

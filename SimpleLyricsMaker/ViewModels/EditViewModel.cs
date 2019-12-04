@@ -139,8 +139,8 @@ namespace SimpleLyricsMaker.ViewModels
             var lyricsFileNames = new List<string>();
 
             RefreshCommand.RaiseCanExecuteChanged();
-            this.LogByObject("开始扫描文件夹");
             Messenger.Default.Send(folder.Name, MessageTokens.FileScanning);
+            this.LogByObject("开始扫描文件夹");
 
             QueryOptions queryOptions = new QueryOptions(CommonFileQuery.OrderByName, allExtensionNames);
             queryOptions.FolderDepth = FolderDepth.Shallow;

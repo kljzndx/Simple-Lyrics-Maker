@@ -39,7 +39,7 @@ namespace SimpleLyricsMaker.ViewModels
         {
             OpenFileCommand = new RelayCommand(async () => await OpenFile(), () => _canOpen);
             OpenFolderCommand = new RelayCommand(async () => await OpenFolder(), () => _canOpen);
-            RefreshCommand = new RelayCommand(async () => await ScanFile(_folder));
+            RefreshCommand = new RelayCommand(async () => await ScanFile(_folder), () => _allFiles?.Any() ?? false);
             SwitchDisplayCommand = new RelayCommand<bool?>(b => ShowFiles(b ?? false));
 
             Messenger.Default.Register<string>(this, MessageTokens.FolderOpened, async msg => await ScanFile(_folder));
@@ -48,7 +48,11 @@ namespace SimpleLyricsMaker.ViewModels
                 CurrentFile = null;
                 DisplayFilesList = null;
             });
-            Messenger.Default.Register<string>(this, MessageTokens.FileScanned, msg => ShowFiles(false));
+            Messenger.Default.Register<string>(this, MessageTokens.FileScanned, msg =>
+            {
+                ShowFiles(false);
+                CurrentFile = DisplayFilesList.FirstOrDefault();
+            });
         }
 
         public MusicFile CurrentFile
@@ -134,6 +138,7 @@ namespace SimpleLyricsMaker.ViewModels
 
             var lyricsFileNames = new List<string>();
 
+            RefreshCommand.RaiseCanExecuteChanged();
             this.LogByObject("开始扫描文件夹");
             Messenger.Default.Send(folder.Name, MessageTokens.FileScanning);
 
@@ -156,6 +161,7 @@ namespace SimpleLyricsMaker.ViewModels
             this.LogByObject("筛选没有相应歌词文件的音乐文件");
             _noLyricFiles.AddRange(_allFiles.Where(mf => lyricsFileNames.All(lfn => lfn.TrimExtensionName() != mf.FileName.TrimExtensionName())));
 
+            RefreshCommand.RaiseCanExecuteChanged();
             Messenger.Default.Send(folder.Name, MessageTokens.FileScanned);
             this.LogByObject("扫描完成");
         }

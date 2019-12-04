@@ -38,7 +38,7 @@
 
                     <CheckBox x:Name="ShowAllFile_CheckBox" Content="Show all music file" HorizontalAlignment="Right"/>
 
-                    <ListView x:Name="MusicFiles_ListView" Grid.Row="1" ItemsSource="{Binding DisplayFilesList, Mode=OneWay}">
+                    <ListView x:Name="MusicFiles_ListView" Grid.Row="1" SelectedItem="{Binding CurrentFile, Mode=TwoWay}" ItemsSource="{Binding DisplayFilesList, Mode=OneWay}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding FileName}"/>

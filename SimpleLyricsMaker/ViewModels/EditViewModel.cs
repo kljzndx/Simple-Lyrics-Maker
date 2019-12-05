@@ -10,13 +10,22 @@ using Windows.Storage.Search;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using HappyStudio.UwpToolsLibrary.Auxiliarys;
 using SimpleLyricsMaker.Logs;
 using SimpleLyricsMaker.Models;
 using SimpleLyricsMaker.ViewModels.Extensions;
 
 namespace SimpleLyricsMaker.ViewModels
 {
+    public enum EditViewMessageTokens
+    {
+        FilePicked,
+        FolderOpened,
+        FileScanning,
+        FileScanned,
+        FilesSeaching,
+        FilesSeached,
+    }
+
     public class EditViewModel : ViewModelBase
     {
         private static readonly string[] allExtensionNames;
@@ -40,15 +49,16 @@ namespace SimpleLyricsMaker.ViewModels
             OpenFileCommand = new RelayCommand(async () => await OpenFile(), () => _canOpen);
             OpenFolderCommand = new RelayCommand(async () => await OpenFolder(), () => _canOpen);
             RefreshCommand = new RelayCommand(async () => await ScanFile(_folder), () => _allFiles?.Any() ?? false);
-            SwitchDisplayCommand = new RelayCommand<bool?>(b => ShowFiles(b ?? false));
+            SwitchDisplayCommand = new RelayCommand<bool?>(b => ShowFiles(b ?? false), b => _allFiles?.Any() ?? false);
+            SearchFilesCommand = new RelayCommand<string>(SearchFiles);
 
-            Messenger.Default.Register<string>(this, MessageTokens.FolderOpened, async msg => await ScanFile(_folder));
-            Messenger.Default.Register<string>(this, MessageTokens.FileScanning, msg =>
+            Messenger.Default.Register<string>(this, EditViewMessageTokens.FolderOpened, async msg => await ScanFile(_folder));
+            Messenger.Default.Register<string>(this, EditViewMessageTokens.FileScanning, msg =>
             {
                 CurrentFile = null;
                 DisplayFilesList = null;
             });
-            Messenger.Default.Register<string>(this, MessageTokens.FileScanned, msg =>
+            Messenger.Default.Register<string>(this, EditViewMessageTokens.FileScanned, msg =>
             {
                 ShowFiles(false);
                 CurrentFile = DisplayFilesList.FirstOrDefault();
@@ -71,6 +81,7 @@ namespace SimpleLyricsMaker.ViewModels
         public RelayCommand OpenFolderCommand { get; }
         public RelayCommand RefreshCommand { get; }
         public RelayCommand<bool?> SwitchDisplayCommand { get; }
+        public RelayCommand<string> SearchFilesCommand { get; }
 
         public async Task OpenFile()
         {
@@ -97,7 +108,7 @@ namespace SimpleLyricsMaker.ViewModels
 
                 CurrentFile = mf;
 
-                Messenger.Default.Send(mf.FileName, MessageTokens.FilePicked);
+                Messenger.Default.Send(mf.FileName, EditViewMessageTokens.FilePicked);
             }
 
             _canOpen = true;
@@ -123,7 +134,7 @@ namespace SimpleLyricsMaker.ViewModels
             {
                 this.LogByObject("选取成功");
                 _folder = folder;
-                Messenger.Default.Send(folder.Name, MessageTokens.FolderOpened);
+                Messenger.Default.Send(folder.Name, EditViewMessageTokens.FolderOpened);
             }
 
             _canOpen = true;
@@ -139,7 +150,8 @@ namespace SimpleLyricsMaker.ViewModels
             var lyricsFileNames = new List<string>();
 
             RefreshCommand.RaiseCanExecuteChanged();
-            Messenger.Default.Send(folder.Name, MessageTokens.FileScanning);
+            SwitchDisplayCommand.RaiseCanExecuteChanged();
+            Messenger.Default.Send(folder.Name, EditViewMessageTokens.FileScanning);
             this.LogByObject("开始扫描文件夹");
 
             QueryOptions queryOptions = new QueryOptions(CommonFileQuery.OrderByName, allExtensionNames);
@@ -162,13 +174,24 @@ namespace SimpleLyricsMaker.ViewModels
             _noLyricFiles.AddRange(_allFiles.Where(mf => lyricsFileNames.All(lfn => lfn.TrimExtensionName() != mf.FileName.TrimExtensionName())));
 
             RefreshCommand.RaiseCanExecuteChanged();
-            Messenger.Default.Send(folder.Name, MessageTokens.FileScanned);
+            SwitchDisplayCommand.RaiseCanExecuteChanged();
+            Messenger.Default.Send(folder.Name, EditViewMessageTokens.FileScanned);
             this.LogByObject("扫描完成");
         }
 
         public void ShowFiles(bool showAll)
         {
             DisplayFilesList = new ObservableCollection<MusicFile>(showAll ? _allFiles : _noLyricFiles);
+        }
+
+        public void SearchFiles(string fileName)
+        {
+            string name = fileName.ToLower();
+            Messenger.Default.Send(name, EditViewMessageTokens.FilesSeaching);
+
+            DisplayFilesList = new ObservableCollection<MusicFile>(_allFiles.Where(mf => mf.FileName.ToLower().Contains(name)));
+
+            Messenger.Default.Send(name, EditViewMessageTokens.FilesSeached);
         }
 
         #endregion

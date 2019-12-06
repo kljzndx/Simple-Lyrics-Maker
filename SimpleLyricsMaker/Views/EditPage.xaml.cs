@@ -38,6 +38,7 @@ namespace SimpleLyricsMaker.Views
             Messenger.Default.Register<string>(this, EditViewMessageTokens.FileScanning, msg =>
             {
                 Root_SplitView.IsPaneOpen = true;
+                Search_TextBox.Text = String.Empty;
                 ShowLoading(FileScanningText1, msg, FileScanningText3);
             });
             Messenger.Default.Register<string>(this, EditViewMessageTokens.FileScanned, msg => HideLoading());

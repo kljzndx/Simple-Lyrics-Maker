@@ -126,4 +126,22 @@
   <data name="LoadingInfo_FilesSearching_Text1" xml:space="preserve">
     <value>Searching </value>
   </data>
+  <data name="OpenFile_Button.Content" xml:space="preserve">
+    <value>Open file</value>
+  </data>
+  <data name="OpenFolder_Button.Content" xml:space="preserve">
+    <value>Open folder</value>
+  </data>
+  <data name="Refresh_Button.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="SearchFiles_Button.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Search (Enter)</value>
+  </data>
+  <data name="Search_TextBox.PlaceholderText" xml:space="preserve">
+    <value>Please enter file name</value>
+  </data>
+  <data name="ShowAllFile_CheckBox.Content" xml:space="preserve">
+    <value>Show all music file</value>
+  </data>
 </root>

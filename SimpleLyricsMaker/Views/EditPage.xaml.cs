@@ -31,12 +31,9 @@ namespace SimpleLyricsMaker.Views
 
         private static readonly string FileSearchingText1 = ResourceLoader.GetForCurrentView("EditPage").GetString("LoadingInfo_FileSearching_Text1");
 
-        private EditViewModel _vm;
-
         public EditPage()
         {
             this.InitializeComponent();
-            _vm = (EditViewModel) this.DataContext;
 
             Messenger.Default.Register<string>(this, EditViewMessageTokens.FileScanning, msg =>
             {
@@ -47,8 +44,6 @@ namespace SimpleLyricsMaker.Views
 
             Messenger.Default.Register<string>(this, EditViewMessageTokens.FilesSeaching, msg => ShowLoading(FileSearchingText1, msg, String.Empty));
             Messenger.Default.Register<string>(this, EditViewMessageTokens.FilesSeached, msg => HideLoading());
-
-
         }
 
         private void ShowLoading(string left, string center, string right)
@@ -63,16 +58,6 @@ namespace SimpleLyricsMaker.Views
             LoadingInfo_TextBlock.Text = String.Empty;
             Loading_ProgressRing.IsActive = false;
             Loading_StackPanel.Visibility = Visibility.Collapsed;
-        }
-
-        private void Search_TextBox_OnKeyUp(object sender, KeyRoutedEventArgs e)
-        {
-            switch (e.Key)
-            {
-                case VirtualKey.Enter:
-                    _vm.SearchFilesCommand.Execute(Search_TextBox.Text);
-                    break;
-            }
         }
     }
 }

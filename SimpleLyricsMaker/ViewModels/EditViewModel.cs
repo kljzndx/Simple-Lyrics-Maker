@@ -30,6 +30,7 @@ namespace SimpleLyricsMaker.ViewModels
     {
         private static readonly string[] allExtensionNames;
         private bool _canOpen = true;
+        private bool _canSearch = true;
 
         private StorageFolder _folder;
 
@@ -49,14 +50,14 @@ namespace SimpleLyricsMaker.ViewModels
             OpenFileCommand = new RelayCommand(async () => await OpenFile(), () => _canOpen);
             OpenFolderCommand = new RelayCommand(async () => await OpenFolder(), () => _canOpen);
             RefreshCommand = new RelayCommand(async () => await ScanFile(_folder), () => _allFiles?.Any() ?? false);
-            SwitchDisplayCommand = new RelayCommand<bool?>(b => ShowFiles(b ?? false), b => _allFiles?.Any() ?? false);
+            SwitchDisplayCommand = new RelayCommand<bool?>(b => ShowFiles(b ?? false), b => RefreshCommand.CanExecute(null));
             SearchFilesCommand = new RelayCommand<string>(s =>
             {
                 if (String.IsNullOrWhiteSpace(s))
                     ShowFiles(false);
                 else
                     SearchFiles(s);
-            });
+            }, s => _canSearch && RefreshCommand.CanExecute(null));
 
             Messenger.Default.Register<string>(this, EditViewMessageTokens.FolderOpened, async msg => await ScanFile(_folder));
             Messenger.Default.Register<string>(this, EditViewMessageTokens.FileScanning, msg =>
@@ -157,6 +158,7 @@ namespace SimpleLyricsMaker.ViewModels
 
             RefreshCommand.RaiseCanExecuteChanged();
             SwitchDisplayCommand.RaiseCanExecuteChanged();
+            SearchFilesCommand.RaiseCanExecuteChanged();
             Messenger.Default.Send(folder.Name, EditViewMessageTokens.FileScanning);
             this.LogByObject("开始扫描文件夹");
 
@@ -181,6 +183,7 @@ namespace SimpleLyricsMaker.ViewModels
 
             RefreshCommand.RaiseCanExecuteChanged();
             SwitchDisplayCommand.RaiseCanExecuteChanged();
+            SearchFilesCommand.RaiseCanExecuteChanged();
             Messenger.Default.Send(folder.Name, EditViewMessageTokens.FileScanned);
             this.LogByObject("扫描完成");
         }
@@ -192,12 +195,16 @@ namespace SimpleLyricsMaker.ViewModels
 
         public void SearchFiles(string fileName)
         {
+            _canSearch = false;
+            SearchFilesCommand.RaiseCanExecuteChanged();
             string name = fileName.ToLower();
             Messenger.Default.Send(name, EditViewMessageTokens.FilesSeaching);
 
             DisplayFilesList = new ObservableCollection<MusicFile>(_allFiles.Where(mf => mf.FileName.ToLower().Contains(name)));
 
             Messenger.Default.Send(name, EditViewMessageTokens.FilesSeached);
+            _canSearch = true;
+            SearchFilesCommand.RaiseCanExecuteChanged();
         }
 
         #endregion

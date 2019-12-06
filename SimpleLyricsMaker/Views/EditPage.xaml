@@ -24,16 +24,25 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBox x:Name="Search_TextBox" KeyUp="Search_TextBox_OnKeyUp">
-                        <interactivity:Interaction.Behaviors>
-                            <interactions:EventTriggerBehavior EventName="LostFocus">
-                                <interactions:InvokeCommandAction Command="{Binding SearchFilesCommand}" CommandParameter="{Binding ElementName=Search_TextBox, Path=Text}"/>
-                            </interactions:EventTriggerBehavior>
-                        </interactivity:Interaction.Behaviors>
-                    </TextBox>
-                    <Button x:Name="Refresh_Button" Grid.Column="1" Command="{Binding RefreshCommand}" Style="{StaticResource ControlButtonStyle}">
-                        <FontIcon Glyph="&#xE117;"/>
-                    </Button>
+                    <TextBox x:Name="Search_TextBox" x:Uid="/EditPage/Search_TextBox"/>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                        <StackPanel.Resources>
+                            <Style TargetType="Button" BasedOn="{StaticResource ControlButtonStyle}">
+                                <Setter Property="Padding" Value="4"/>
+                            </Style>
+                        </StackPanel.Resources>
+
+                        <Button x:Uid="/EditPage/SearchFiles_Button" Command="{Binding SearchFilesCommand}" CommandParameter="{Binding ElementName=Search_TextBox, Path=Text}">
+                            <Button.KeyboardAccelerators>
+                                <KeyboardAccelerator Key="Enter" ScopeOwner="{Binding ElementName=Search_TextBox}"/>
+                            </Button.KeyboardAccelerators>
+
+                            <FontIcon Glyph="&#xE094;"/>
+                        </Button>
+                        <Button x:Name="Refresh_Button" x:Uid="/EditPage/Refresh_Button" Command="{Binding RefreshCommand}">
+                            <FontIcon Glyph="&#xE117;"/>
+                        </Button>
+                    </StackPanel>
                 </Grid>
 
                 <Grid Grid.Row="1">
@@ -42,7 +51,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
 
-                    <CheckBox x:Name="ShowAllFile_CheckBox" Content="Show all music file" Command="{Binding SwitchDisplayCommand}" CommandParameter="{Binding ElementName=ShowAllFile_CheckBox, Path=IsChecked}" HorizontalAlignment="Right"/>
+                    <CheckBox x:Name="ShowAllFile_CheckBox" x:Uid="/EditPage/ShowAllFile_CheckBox" Command="{Binding SwitchDisplayCommand}" CommandParameter="{Binding ElementName=ShowAllFile_CheckBox, Path=IsChecked}" HorizontalAlignment="Right"/>
 
                     <ListView x:Name="MusicFiles_ListView" Grid.Row="1" SelectedItem="{Binding CurrentFile, Mode=TwoWay}" ItemsSource="{Binding DisplayFilesList, Mode=OneWay}">
                         <ListView.ItemTemplate>
@@ -73,8 +82,8 @@
                     </Style>
                 </StackPanel.Resources>
 
-                <Button Content="Open file" Command="{Binding OpenFileCommand}"/>
-                <Button Content="Open folder" Command="{Binding OpenFolderCommand}"/>
+                <Button x:Uid="/EditPage/OpenFile_Button" Content="Open file" Command="{Binding OpenFileCommand}"/>
+                <Button x:Uid="/EditPage/OpenFolder_Button" Content="Open folder" Command="{Binding OpenFolderCommand}"/>
 
             </StackPanel>
         </Grid>

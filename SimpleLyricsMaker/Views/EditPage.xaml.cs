@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel.Resources;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -24,22 +26,53 @@ namespace SimpleLyricsMaker.Views
     /// </summary>
     public sealed partial class EditPage : Page
     {
+        private static readonly string FileScanningText1 = ResourceLoader.GetForCurrentView("EditPage").GetString("LoadingInfo_FileScanning_Text1");
+        private static readonly string FileScanningText3 = ResourceLoader.GetForCurrentView("EditPage").GetString("LoadingInfo_FileScanning_Text3");
+
+        private static readonly string FileSearchingText1 = ResourceLoader.GetForCurrentView("EditPage").GetString("LoadingInfo_FileSearching_Text1");
+
+        private EditViewModel _vm;
+
         public EditPage()
         {
             this.InitializeComponent();
+            _vm = (EditViewModel) this.DataContext;
 
-            Messenger.Default.Register<string>(this, MessageTokens.FileScanning, msg =>
+            Messenger.Default.Register<string>(this, EditViewMessageTokens.FileScanning, msg =>
             {
                 Root_SplitView.IsPaneOpen = true;
-                FileScanning_StackPanel.Visibility = Visibility.Visible;
-                FileScanning_ProgressRing.IsActive = true;
-                Folder_Run.Text = msg;
+                ShowLoading(FileScanningText1, msg, FileScanningText3);
             });
-            Messenger.Default.Register<string>(this, MessageTokens.FileScanned, msg =>
+            Messenger.Default.Register<string>(this, EditViewMessageTokens.FileScanned, msg => HideLoading());
+
+            Messenger.Default.Register<string>(this, EditViewMessageTokens.FilesSeaching, msg => ShowLoading(FileSearchingText1, msg, String.Empty));
+            Messenger.Default.Register<string>(this, EditViewMessageTokens.FilesSeached, msg => HideLoading());
+
+
+        }
+
+        private void ShowLoading(string left, string center, string right)
+        {
+            Loading_StackPanel.Visibility = Visibility.Visible;
+            Loading_ProgressRing.IsActive = true;
+            LoadingInfo_TextBlock.Text = String.Concat(left, center, right);
+        }
+
+        private void HideLoading()
+        {
+            LoadingInfo_TextBlock.Text = String.Empty;
+            Loading_ProgressRing.IsActive = false;
+            Loading_StackPanel.Visibility = Visibility.Collapsed;
+        }
+
+        private void Search_TextBox_OnKeyUp(object sender, KeyRoutedEventArgs e)
+        {
+            switch (e.Key)
             {
-                FileScanning_ProgressRing.IsActive = false;
-                FileScanning_StackPanel.Visibility = Visibility.Collapsed;
-            });
+                case VirtualKey.Enter:
+                    _vm.SearchFilesCommand.Execute(Search_TextBox.Text);
+                    break;
+            }
         }
     }
 }

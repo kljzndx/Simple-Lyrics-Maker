@@ -194,9 +194,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="StringResource\en-US\Controllers\" />
-    <Folder Include="StringResource\en-US\Pages\" />
     <Folder Include="StringResource\zh-CN\Controllers\" />
-    <Folder Include="StringResource\zh-CN\Pages\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SimpleLyricsMaker.Logs\SimpleLyricsMaker.Logs.csproj">
@@ -221,6 +219,12 @@
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="StringResource\en-US\Members\ErrorTable.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="StringResource\zh-CN\Pages\EditPage.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="StringResource\en-US\Pages\EditPage.resw" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

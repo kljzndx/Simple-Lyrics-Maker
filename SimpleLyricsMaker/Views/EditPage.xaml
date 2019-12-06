@@ -24,7 +24,13 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBox x:Name="Search_TextBox"/>
+                    <TextBox x:Name="Search_TextBox" KeyUp="Search_TextBox_OnKeyUp">
+                        <interactivity:Interaction.Behaviors>
+                            <interactions:EventTriggerBehavior EventName="LostFocus">
+                                <interactions:InvokeCommandAction Command="{Binding SearchFilesCommand}" CommandParameter="{Binding ElementName=Search_TextBox, Path=Text}"/>
+                            </interactions:EventTriggerBehavior>
+                        </interactivity:Interaction.Behaviors>
+                    </TextBox>
                     <Button x:Name="Refresh_Button" Grid.Column="1" Command="{Binding RefreshCommand}" Style="{StaticResource ControlButtonStyle}">
                         <FontIcon Glyph="&#xE117;"/>
                     </Button>
@@ -46,21 +52,20 @@
                         </ListView.ItemTemplate>
                     </ListView>
 
-                    <StackPanel x:Name="FileScanning_StackPanel" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <ProgressRing x:Name="FileScanning_ProgressRing" Width="100" Height="100"/>
+                    <StackPanel x:Name="Loading_StackPanel" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <ProgressRing x:Name="Loading_ProgressRing" Width="100" Height="100"/>
 
-                        <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}">
-                            <Run Text="Scanning"/>
-                            <Run x:Name="Folder_Run"/>
-                            <Run Text="folder"/>
-                        </TextBlock>
+                        <TextBlock x:Name="LoadingInfo_TextBlock" Style="{ThemeResource SubtitleTextBlockStyle}"/>
                     </StackPanel>
                 </Grid>
             </Grid>
         </SplitView.Pane>
 
         <Grid>
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel x:Name="QuickMenu_StackPanel" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel.Background>
+                    <SolidColorBrush Color="{ThemeResource SystemBaseHighColor}" Opacity="0.05"/>
+                </StackPanel.Background>
                 <StackPanel.Resources>
                     <Style TargetType="Button">
                         <Setter Property="Width" Value="200"/>

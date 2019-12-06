@@ -51,13 +51,7 @@ namespace SimpleLyricsMaker.ViewModels
             OpenFolderCommand = new RelayCommand(async () => await OpenFolder(), () => _canOpen);
             RefreshCommand = new RelayCommand(async () => await ScanFile(_folder), () => _allFiles?.Any() ?? false);
             SwitchDisplayCommand = new RelayCommand<bool?>(b => ShowFiles(b ?? false), b => RefreshCommand.CanExecute(null));
-            SearchFilesCommand = new RelayCommand<string>(s =>
-            {
-                if (String.IsNullOrWhiteSpace(s))
-                    ShowFiles(false);
-                else
-                    SearchFiles(s);
-            }, s => _canSearch && RefreshCommand.CanExecute(null));
+            SearchFilesCommand = new RelayCommand<string>(SearchFiles, s => !String.IsNullOrWhiteSpace(s) && _canSearch && RefreshCommand.CanExecute(null));
 
             Messenger.Default.Register<string>(this, EditViewMessageTokens.FolderOpened, async msg => await ScanFile(_folder));
             Messenger.Default.Register<string>(this, EditViewMessageTokens.FileScanning, msg =>

@@ -24,7 +24,14 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBox x:Name="Search_TextBox" x:Uid="/EditPage/Search_TextBox"/>
+                    <TextBox x:Name="Search_TextBox" x:Uid="/EditPage/Search_TextBox" InputScope="Search">
+                        <interactivity:Interaction.Behaviors>
+                            <interactions:DataTriggerBehavior Binding="{Binding ElementName=Search_TextBox, Path=Text}" Value="" ComparisonCondition="Equal">
+                                <interactions:InvokeCommandAction Command="{Binding SwitchDisplayCommand}" CommandParameter="{Binding ElementName=ShowAllFile_CheckBox, Path=IsChecked, Mode=OneWay}"/>
+                                <interactions:ChangePropertyAction TargetObject="{Binding ElementName=ShowAllFile_CheckBox}" PropertyName="Visibility" Value="Visible"/>
+                            </interactions:DataTriggerBehavior>
+                        </interactivity:Interaction.Behaviors>
+                    </TextBox>
                     <StackPanel Grid.Column="1" Orientation="Horizontal">
                         <StackPanel.Resources>
                             <Style TargetType="Button" BasedOn="{StaticResource ControlButtonStyle}">
@@ -33,6 +40,12 @@
                         </StackPanel.Resources>
 
                         <Button x:Uid="/EditPage/SearchFiles_Button" Command="{Binding SearchFilesCommand}" CommandParameter="{Binding ElementName=Search_TextBox, Path=Text}">
+                            <interactivity:Interaction.Behaviors>
+                                <interactions:EventTriggerBehavior EventName="Click">
+                                    <interactions:ChangePropertyAction TargetObject="{Binding ElementName=ShowAllFile_CheckBox}" PropertyName="Visibility" Value="Collapsed"/>
+                                </interactions:EventTriggerBehavior>
+                            </interactivity:Interaction.Behaviors>
+
                             <Button.KeyboardAccelerators>
                                 <KeyboardAccelerator Key="Enter" ScopeOwner="{Binding ElementName=Search_TextBox}"/>
                             </Button.KeyboardAccelerators>

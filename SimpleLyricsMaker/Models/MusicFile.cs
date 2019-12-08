@@ -17,6 +17,7 @@ namespace SimpleLyricsMaker.Models
         {
             Title = musicProperties.Title;
             Artist = musicProperties.Artist;
+            Author = String.Join(", ", musicProperties.Writers);
             Album = musicProperties.Album;
 
             FileName = file.Name;
@@ -25,6 +26,7 @@ namespace SimpleLyricsMaker.Models
 
         public string Title { get; }
         public string Artist { get; }
+        public string Author { get; }
         public string Album { get; }
 
         public string FileName { get; }

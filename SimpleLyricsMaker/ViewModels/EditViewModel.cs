@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.ServiceModel.Channels;
 using System.Threading.Tasks;
@@ -13,6 +14,8 @@ using GalaSoft.MvvmLight.Messaging;
 using SimpleLyricsMaker.Logs;
 using SimpleLyricsMaker.Models;
 using SimpleLyricsMaker.ViewModels.Extensions;
+using HappyStudio.Parsing.Subtitle.LRC;
+using HappyStudio.UwpToolsLibrary.Information;
 
 namespace SimpleLyricsMaker.ViewModels
 {
@@ -37,7 +40,9 @@ namespace SimpleLyricsMaker.ViewModels
         private List<MusicFile> _allFiles;
         private List<MusicFile> _noLyricFiles;
 
-        private MusicFile _currentFile;
+        private MusicFile _currentMusicFile;
+        private LrcBlock _currentLyricsFile;
+
         private ObservableCollection<MusicFile> _displayFilesList;
 
         static EditViewModel()
@@ -47,6 +52,8 @@ namespace SimpleLyricsMaker.ViewModels
 
         public EditViewModel()
         {
+            base.PropertyChanged += EditViewModel_PropertyChanged;
+
             OpenFileCommand = new RelayCommand(async () => await OpenFile(), () => _canOpen);
             OpenFolderCommand = new RelayCommand(async () => await OpenFolder(), () => _canOpen);
             RefreshCommand = new RelayCommand(async () => await ScanFile(_folder), () => _allFiles?.Any() ?? false);
@@ -56,20 +63,27 @@ namespace SimpleLyricsMaker.ViewModels
             Messenger.Default.Register<string>(this, EditViewMessageTokens.FolderOpened, async msg => await ScanFile(_folder));
             Messenger.Default.Register<string>(this, EditViewMessageTokens.FileScanning, msg =>
             {
-                CurrentFile = null;
+                CurrentMusicFile = null;
+                CurrentLyricsFile = null;
                 DisplayFilesList = null;
             });
             Messenger.Default.Register<string>(this, EditViewMessageTokens.FileScanned, msg =>
             {
                 ShowFiles(false);
-                CurrentFile = DisplayFilesList.FirstOrDefault();
+                CurrentMusicFile = DisplayFilesList.FirstOrDefault();
             });
         }
 
-        public MusicFile CurrentFile
+        public MusicFile CurrentMusicFile
         {
-            get => _currentFile;
-            set => Set(ref _currentFile, value);
+            get => _currentMusicFile;
+            set => Set(ref _currentMusicFile, value);
+        }
+
+        public LrcBlock CurrentLyricsFile
+        {
+            get => _currentLyricsFile;
+            set => Set(ref _currentLyricsFile, value);
         }
 
         public ObservableCollection<MusicFile> DisplayFilesList
@@ -83,6 +97,23 @@ namespace SimpleLyricsMaker.ViewModels
         public RelayCommand RefreshCommand { get; }
         public RelayCommand<bool?> SwitchDisplayCommand { get; }
         public RelayCommand<string> SearchFilesCommand { get; }
+
+        public LrcBlock CreateLyricsFile()
+        {
+            var lrc = new LrcBlock();
+            var property = (LrcProperties) lrc.Properties;
+            if (CurrentMusicFile != null)
+            {
+                property.Title = CurrentMusicFile.Title;
+                property.Artist = CurrentMusicFile.Artist;
+                property.Author = CurrentMusicFile.Author;
+                property.Album = CurrentMusicFile.Album;
+            }
+
+            property.EditorName = AppInfo.Name;
+            property.EditorVersion = AppInfo.Version;
+            return lrc;
+        }
 
         public async Task OpenFile()
         {
@@ -107,7 +138,7 @@ namespace SimpleLyricsMaker.ViewModels
                     DisplayFilesList?.Insert(0, mf);
                 }
 
-                CurrentFile = mf;
+                CurrentMusicFile = mf;
 
                 Messenger.Default.Send(mf.FileName, EditViewMessageTokens.FilePicked);
             }
@@ -202,5 +233,16 @@ namespace SimpleLyricsMaker.ViewModels
         }
 
         #endregion
+
+        private void EditViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(CurrentMusicFile):
+                    if (CurrentMusicFile != null)
+                        CurrentLyricsFile = CreateLyricsFile();
+                    break;
+            }
+        }
     }
 }

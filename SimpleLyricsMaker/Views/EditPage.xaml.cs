@@ -43,8 +43,8 @@ namespace SimpleLyricsMaker.Views
             });
             Messenger.Default.Register<string>(this, EditViewMessageTokens.FileScanned, msg => HideLoading());
 
-            Messenger.Default.Register<string>(this, EditViewMessageTokens.FilesSeaching, msg => ShowLoading(FileSearchingText1, msg, String.Empty));
-            Messenger.Default.Register<string>(this, EditViewMessageTokens.FilesSeached, msg => HideLoading());
+            Messenger.Default.Register<string>(this, EditViewMessageTokens.FilesSearching, msg => ShowLoading(FileSearchingText1, msg, String.Empty));
+            Messenger.Default.Register<string>(this, EditViewMessageTokens.FilesSearched, msg => HideLoading());
         }
 
         private void ShowLoading(string left, string center, string right)

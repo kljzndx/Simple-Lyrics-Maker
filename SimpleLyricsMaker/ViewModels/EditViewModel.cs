@@ -25,8 +25,8 @@ namespace SimpleLyricsMaker.ViewModels
         FolderOpened,
         FileScanning,
         FileScanned,
-        FilesSeaching,
-        FilesSeached,
+        FilesSearching,
+        FilesSearched,
     }
 
     public class EditViewModel : ViewModelBase
@@ -223,11 +223,11 @@ namespace SimpleLyricsMaker.ViewModels
             _canSearch = false;
             SearchFilesCommand.RaiseCanExecuteChanged();
             string name = fileName.ToLower();
-            Messenger.Default.Send(name, EditViewMessageTokens.FilesSeaching);
+            Messenger.Default.Send(name, EditViewMessageTokens.FilesSearching);
 
             DisplayFilesList = new ObservableCollection<MusicFile>(_allFiles.Where(mf => mf.FileName.ToLower().Contains(name)));
 
-            Messenger.Default.Send(name, EditViewMessageTokens.FilesSeached);
+            Messenger.Default.Send(name, EditViewMessageTokens.FilesSearched);
             _canSearch = true;
             SearchFilesCommand.RaiseCanExecuteChanged();
         }

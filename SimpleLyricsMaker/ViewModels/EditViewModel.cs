@@ -32,6 +32,9 @@ namespace SimpleLyricsMaker.ViewModels
     public class EditViewModel : ViewModelBase
     {
         private static readonly string[] allExtensionNames;
+        private static readonly FileOpenPicker fileOpenPicker;
+        private static readonly FolderPicker folderOpenPicker;
+
         private bool _canOpen = true;
         private bool _canSearch = true;
 
@@ -48,6 +51,15 @@ namespace SimpleLyricsMaker.ViewModels
         static EditViewModel()
         {
             allExtensionNames = new[] {".lrc", ".mp3", ".aac", ".flac", ".alac", ".m4a", ".wav"};
+
+            fileOpenPicker = new FileOpenPicker();
+            fileOpenPicker.SuggestedStartLocation = PickerLocationId.MusicLibrary;
+            foreach (var name in allExtensionNames.Skip(1))
+                fileOpenPicker.FileTypeFilter.Add(name);
+
+            folderOpenPicker = new FolderPicker();
+            folderOpenPicker.SuggestedStartLocation = PickerLocationId.MusicLibrary;
+            folderOpenPicker.FileTypeFilter.Add("*");
         }
 
         public EditViewModel()
@@ -122,12 +134,7 @@ namespace SimpleLyricsMaker.ViewModels
             OpenFolderCommand.RaiseCanExecuteChanged();
             this.LogByObject("正在打开文件夹选取器");
 
-            var picker = new FileOpenPicker();
-            picker.SuggestedStartLocation = PickerLocationId.MusicLibrary;
-            foreach (var name in allExtensionNames.Skip(1))
-                picker.FileTypeFilter.Add(name);
-
-            var file = await picker.PickSingleFileAsync();
+            var file = await fileOpenPicker.PickSingleFileAsync();
             if (file != null)
             {
                 this.LogByObject("选取成功");
@@ -160,11 +167,7 @@ namespace SimpleLyricsMaker.ViewModels
             OpenFileCommand.RaiseCanExecuteChanged();
 
             this.LogByObject("正在打开文件夹选取器");
-            var picker = new FolderPicker();
-            picker.SuggestedStartLocation = PickerLocationId.MusicLibrary;
-            picker.FileTypeFilter.Add("*");
-
-            var folder = await picker.PickSingleFolderAsync();
+            var folder = await folderOpenPicker.PickSingleFolderAsync();
             if (folder != null)
             {
                 this.LogByObject("选取成功");

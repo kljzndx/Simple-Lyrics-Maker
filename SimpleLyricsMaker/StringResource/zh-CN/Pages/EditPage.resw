@@ -126,6 +126,24 @@
   <data name="LoadingInfo_FilesSearching_Text1" xml:space="preserve">
     <value>正在搜索 </value>
   </data>
+  <data name="LyricsFileInfo_Album_TextBox.Header" xml:space="preserve">
+    <value>专辑：</value>
+  </data>
+  <data name="LyricsFileInfo_Artist_TextBox.Header" xml:space="preserve">
+    <value>歌手：</value>
+  </data>
+  <data name="LyricsFileInfo_Author_TextBox.Header" xml:space="preserve">
+    <value>作曲/词家：</value>
+  </data>
+  <data name="LyricsFileInfo_MadeBy_TextBox.Header" xml:space="preserve">
+    <value>歌词文件制作者：</value>
+  </data>
+  <data name="LyricsFileInfo_Title_TextBox.Header" xml:space="preserve">
+    <value>标题：</value>
+  </data>
+  <data name="LyricsFileProperties_TextBlock.Text" xml:space="preserve">
+    <value>歌词文件属性</value>
+  </data>
   <data name="OpenFile_Button.Content" xml:space="preserve">
     <value>打开文件</value>
   </data>

@@ -126,6 +126,24 @@
   <data name="LoadingInfo_FilesSearching_Text1" xml:space="preserve">
     <value>Searching </value>
   </data>
+  <data name="LyricsFileInfo_Album_TextBox.Header" xml:space="preserve">
+    <value>Album:</value>
+  </data>
+  <data name="LyricsFileInfo_Artist_TextBox.Header" xml:space="preserve">
+    <value>Artist:</value>
+  </data>
+  <data name="LyricsFileInfo_Author_TextBox.Header" xml:space="preserve">
+    <value>Author:</value>
+  </data>
+  <data name="LyricsFileInfo_MadeBy_TextBox.Header" xml:space="preserve">
+    <value>This .lrc file made by:</value>
+  </data>
+  <data name="LyricsFileInfo_Title_TextBox.Header" xml:space="preserve">
+    <value>Title:</value>
+  </data>
+  <data name="LyricsFileProperties_TextBlock.Text" xml:space="preserve">
+    <value>Lyrics file properties</value>
+  </data>
   <data name="OpenFile_Button.Content" xml:space="preserve">
     <value>Open file</value>
   </data>

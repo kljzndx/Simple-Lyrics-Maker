@@ -84,7 +84,7 @@
         </SplitView.Pane>
 
         <Grid>
-            <Grid x:Name="LyricsFileInfo_Grid" Visibility="Collapsed" Margin="12">
+            <Grid x:Name="LyricsFileInfo_Grid" Margin="12">
                 <interactivity:Interaction.Behaviors>
                     <interactions:DataTriggerBehavior Binding="{Binding CurrentLyricsFile, Mode=OneWay}" Value="{x:Null}" ComparisonCondition="Equal">
                         <interactions:ChangePropertyAction PropertyName="Visibility" Value="Collapsed"/>
@@ -94,27 +94,56 @@
                     </interactions:DataTriggerBehavior>
                 </interactivity:Interaction.Behaviors>
 
+                <Grid.Resources>
+                    <Style x:Key="TitleBorder_Style" TargetType="Border">
+                        <Setter Property="Background" Value="{ThemeResource SystemControlBackgroundChromeMediumBrush}"/>
+                        <Setter Property="BorderBrush" Value="{ThemeResource SystemControlBackgroundBaseHighBrush}"/>
+                        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                        <Setter Property="Padding" Value="0,8"/>
+                    </Style>
+                    <Style x:Key="MySubtitleTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource SubtitleTextBlockStyle}">
+                        <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                    </Style>
+                </Grid.Resources>
+
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
-                <Grid DataContext="{Binding CurrentLyricsFile.Properties, Mode=OneWay}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
+                <Grid Background="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
 
-                    <TextBox Text="{Binding Title, Mode=TwoWay}"/>
-                    <TextBox Grid.Column="1" Text="{Binding Artist, Mode=TwoWay}"/>
-                    <TextBox Grid.Row="1" Text="{Binding Author, Mode=TwoWay}"/>
-                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Album, Mode=TwoWay}"/>
-                    <TextBox Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding MadeBy, Mode=TwoWay}" Width="200" HorizontalAlignment="Center"/>
+                    <Border Style="{ThemeResource TitleBorder_Style}">
+                        <TextBlock x:Uid="/EditPage/LyricsFileProperties_TextBlock" Style="{ThemeResource MySubtitleTextBlockStyle}"/>
+                    </Border>
+
+                    <Grid Grid.Row="1" Padding="4" DataContext="{Binding CurrentLyricsFile.Properties, Mode=OneWay}">
+                        <Grid.Resources>
+                            <Style TargetType="TextBox">
+                                <Setter Property="Margin" Value="4"/>
+                            </Style>
+                        </Grid.Resources>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <TextBox x:Uid="/EditPage/LyricsFileInfo_Title_TextBox" Text="{Binding Title, Mode=TwoWay}"/>
+                        <TextBox x:Uid="/EditPage/LyricsFileInfo_Artist_TextBox" Grid.Column="1" Text="{Binding Artist, Mode=TwoWay}"/>
+                        <TextBox x:Uid="/EditPage/LyricsFileInfo_Author_TextBox" Grid.Row="1" Text="{Binding Author, Mode=TwoWay}"/>
+                        <TextBox x:Uid="/EditPage/LyricsFileInfo_Album_TextBox" Grid.Row="1" Grid.Column="1" Text="{Binding Album, Mode=TwoWay}"/>
+                        <TextBox x:Uid="/EditPage/LyricsFileInfo_MadeBy_TextBox" Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding MadeBy, Mode=TwoWay}" Width="200" HorizontalAlignment="Center"/>
+                    </Grid>
                 </Grid>
             </Grid>
 

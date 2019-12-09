@@ -34,6 +34,7 @@ namespace SimpleLyricsMaker.Views
         public EditPage()
         {
             this.InitializeComponent();
+            LyricsFileInfo_Grid.Visibility = Visibility.Collapsed;
 
             Messenger.Default.Register<string>(this, EditViewMessageTokens.FileScanning, msg =>
             {

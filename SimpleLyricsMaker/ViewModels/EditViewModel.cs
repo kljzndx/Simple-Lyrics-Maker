@@ -77,12 +77,13 @@ namespace SimpleLyricsMaker.ViewModels
 
             Messenger.Default.Register<string>(this, EditViewMessageTokens.FolderOpened, async msg => await ScanFile(_folder));
             Messenger.Default.Register<string>(this, EditViewMessageTokens.FileScanned, msg => ShowFiles(Settings.ShowAll));
-            Messenger.Default.Register<string>(this, EditViewMessageTokens.FilesShowing, msg =>
+
+            Messenger.Default.Register<ObservableCollection<MusicFile>>(this, EditViewMessageTokens.FilesShowing, list =>
             {
                 CurrentMusicFile = null;
                 CurrentLyricsFile = null;
             });
-            Messenger.Default.Register<string>(this, EditViewMessageTokens.FilesShowed, msg => CurrentMusicFile = DisplayFilesList.FirstOrDefault());
+            Messenger.Default.Register<ObservableCollection<MusicFile>>(this, EditViewMessageTokens.FilesShowed, list => CurrentMusicFile = DisplayFilesList?.FirstOrDefault());
         }
 
         public MusicFile CurrentMusicFile
@@ -102,9 +103,9 @@ namespace SimpleLyricsMaker.ViewModels
             get => _displayFilesList;
             set
             {
-                Messenger.Default.Send(String.Empty, EditViewMessageTokens.FilesShowing);
+                Messenger.Default.Send(_displayFilesList, EditViewMessageTokens.FilesShowing);
                 Set(ref _displayFilesList, value);
-                Messenger.Default.Send(String.Empty, EditViewMessageTokens.FilesShowed);
+                Messenger.Default.Send(_displayFilesList, EditViewMessageTokens.FilesShowed);
             }
         }
 

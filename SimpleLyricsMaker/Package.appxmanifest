@@ -14,7 +14,7 @@
   <mp:PhoneIdentity PhoneProductId="53cfc0ed-48ce-4c1e-9759-bd9a97eb6ce2" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>SimpleLyricsMaker</DisplayName>
+    <DisplayName>ms-resource:/App/Name</DisplayName>
     <PublisherDisplayName>kljzn</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -32,12 +32,12 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="SimpleLyricsMaker.App">
       <uap:VisualElements
-        DisplayName="SimpleLyricsMaker"
+        DisplayName="ms-resource:/App/Name"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
         Description="SimpleLyricsMaker"
         BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" ShortName="ms-resource:/App/ShortName"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
     </Application>

@@ -28,6 +28,8 @@ namespace SimpleLyricsMaker.ViewModels
         FileScanned,
         FilesSearching,
         FilesSearched,
+        FilesShowing,
+        FilesShowed,
     }
 
     public class EditViewModel : ViewModelBase
@@ -74,17 +76,13 @@ namespace SimpleLyricsMaker.ViewModels
             SearchFilesCommand = new RelayCommand<string>(SearchFiles, s => !String.IsNullOrWhiteSpace(s) && _canSearch && RefreshCommand.CanExecute(null));
 
             Messenger.Default.Register<string>(this, EditViewMessageTokens.FolderOpened, async msg => await ScanFile(_folder));
-            Messenger.Default.Register<string>(this, EditViewMessageTokens.FileScanning, msg =>
+            Messenger.Default.Register<string>(this, EditViewMessageTokens.FileScanned, msg => ShowFiles(Settings.ShowAll));
+            Messenger.Default.Register<string>(this, EditViewMessageTokens.FilesShowing, msg =>
             {
                 CurrentMusicFile = null;
                 CurrentLyricsFile = null;
-                DisplayFilesList = null;
             });
-            Messenger.Default.Register<string>(this, EditViewMessageTokens.FileScanned, msg =>
-            {
-                ShowFiles(Settings.ShowAll);
-                CurrentMusicFile = DisplayFilesList.FirstOrDefault();
-            });
+            Messenger.Default.Register<string>(this, EditViewMessageTokens.FilesShowed, msg => CurrentMusicFile = DisplayFilesList.FirstOrDefault());
         }
 
         public MusicFile CurrentMusicFile
@@ -102,7 +100,12 @@ namespace SimpleLyricsMaker.ViewModels
         public ObservableCollection<MusicFile> DisplayFilesList
         {
             get => _displayFilesList;
-            set => Set(ref _displayFilesList, value);
+            set
+            {
+                Messenger.Default.Send(String.Empty, EditViewMessageTokens.FilesShowing);
+                Set(ref _displayFilesList, value);
+                Messenger.Default.Send(String.Empty, EditViewMessageTokens.FilesShowed);
+            }
         }
 
         public EditViewSettingProperties Settings { get; } = EditViewSettingProperties.Current;
@@ -194,6 +197,7 @@ namespace SimpleLyricsMaker.ViewModels
 
         public async Task ScanFile(StorageFolder folder)
         {
+            DisplayFilesList = null;
             _allFiles = new List<MusicFile>();
             _noLyricFiles = new List<MusicFile>();
 

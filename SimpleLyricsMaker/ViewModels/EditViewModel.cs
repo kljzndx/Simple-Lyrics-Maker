@@ -120,6 +120,7 @@ namespace SimpleLyricsMaker.ViewModels
             _canOpen = false;
             OpenFileCommand.RaiseCanExecuteChanged();
             OpenFolderCommand.RaiseCanExecuteChanged();
+            this.LogByObject("正在打开文件夹选取器");
 
             var picker = new FileOpenPicker();
             picker.SuggestedStartLocation = PickerLocationId.MusicLibrary;
@@ -129,10 +130,12 @@ namespace SimpleLyricsMaker.ViewModels
             var file = await picker.PickSingleFileAsync();
             if (file != null)
             {
+                this.LogByObject("选取成功");
                 var mf = DisplayFilesList?.FirstOrDefault(f => f.FilePath == file.Path);
 
                 if (mf == null)
                 {
+                    this.LogByObject("正在创建模型");
                     mf = await MusicFile.Create(file);
 
                     DisplayFilesList?.Insert(0, mf);
@@ -215,6 +218,8 @@ namespace SimpleLyricsMaker.ViewModels
 
         public void ShowFiles(bool showAll)
         {
+            this.LogByObject($"正在显示文件 showAll = {showAll}");
+
             DisplayFilesList = new ObservableCollection<MusicFile>(showAll ? _allFiles : _noLyricFiles);
         }
 
@@ -224,6 +229,7 @@ namespace SimpleLyricsMaker.ViewModels
             SearchFilesCommand.RaiseCanExecuteChanged();
             string name = fileName.ToLower();
             Messenger.Default.Send(name, EditViewMessageTokens.FilesSearching);
+            this.LogByObject("开始搜索");
 
             DisplayFilesList = new ObservableCollection<MusicFile>(_allFiles.Where(mf => mf.FileName.ToLower().Contains(name)));
 

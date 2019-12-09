@@ -144,8 +144,14 @@
   <data name="LyricsFileProperties_TextBlock.Text" xml:space="preserve">
     <value>歌词文件属性</value>
   </data>
+  <data name="OpenFile_AppBarButton.Label" xml:space="preserve">
+    <value>打开文件</value>
+  </data>
   <data name="OpenFile_Button.Content" xml:space="preserve">
     <value>打开文件</value>
+  </data>
+  <data name="OpenFolder_AppBarButton.Label" xml:space="preserve">
+    <value>打开文件夹</value>
   </data>
   <data name="OpenFolder_Button.Content" xml:space="preserve">
     <value>打开文件夹</value>

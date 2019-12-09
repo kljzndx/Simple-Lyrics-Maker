@@ -170,4 +170,21 @@
             </StackPanel>
         </Grid>
     </SplitView>
+
+    <Page.BottomAppBar>
+        <CommandBar>
+            <CommandBar.PrimaryCommands>
+                <AppBarButton x:Uid="/EditPage/OpenFile_AppBarButton" Command="{Binding OpenFileCommand}">
+                    <AppBarButton.Icon>
+                        <FontIcon Glyph="&#xE1A5;"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton x:Uid="/EditPage/OpenFolder_AppBarButton" Command="{Binding OpenFolderCommand}">
+                    <AppBarButton.Icon>
+                        <FontIcon Glyph="&#xE197;"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+            </CommandBar.PrimaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

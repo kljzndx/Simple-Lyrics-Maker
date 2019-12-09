@@ -144,8 +144,14 @@
   <data name="LyricsFileProperties_TextBlock.Text" xml:space="preserve">
     <value>Lyrics file properties</value>
   </data>
+  <data name="OpenFile_AppBarButton.Label" xml:space="preserve">
+    <value>Open file</value>
+  </data>
   <data name="OpenFile_Button.Content" xml:space="preserve">
     <value>Open file</value>
+  </data>
+  <data name="OpenFolder_AppBarButton.Label" xml:space="preserve">
+    <value>Open folder</value>
   </data>
   <data name="OpenFolder_Button.Content" xml:space="preserve">
     <value>Open folder</value>

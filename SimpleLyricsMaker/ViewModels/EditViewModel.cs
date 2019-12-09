@@ -16,6 +16,7 @@ using SimpleLyricsMaker.Models;
 using SimpleLyricsMaker.ViewModels.Extensions;
 using HappyStudio.Parsing.Subtitle.LRC;
 using HappyStudio.UwpToolsLibrary.Information;
+using SimpleLyricsMaker.ViewModels.Settings;
 
 namespace SimpleLyricsMaker.ViewModels
 {
@@ -81,7 +82,7 @@ namespace SimpleLyricsMaker.ViewModels
             });
             Messenger.Default.Register<string>(this, EditViewMessageTokens.FileScanned, msg =>
             {
-                ShowFiles(false);
+                ShowFiles(Settings.ShowAll);
                 CurrentMusicFile = DisplayFilesList.FirstOrDefault();
             });
         }
@@ -104,13 +105,15 @@ namespace SimpleLyricsMaker.ViewModels
             set => Set(ref _displayFilesList, value);
         }
 
+        public EditViewSettingProperties Settings { get; } = EditViewSettingProperties.Current;
+
         public RelayCommand OpenFileCommand { get; }
         public RelayCommand OpenFolderCommand { get; }
         public RelayCommand RefreshCommand { get; }
         public RelayCommand<bool?> SwitchDisplayCommand { get; }
         public RelayCommand<string> SearchFilesCommand { get; }
 
-        public LrcBlock CreateLyricsFile()
+        public void CreateLyricsFile()
         {
             var lrc = new LrcBlock();
             var property = (LrcProperties) lrc.Properties;
@@ -124,7 +127,16 @@ namespace SimpleLyricsMaker.ViewModels
 
             property.EditorName = AppInfo.Name;
             property.EditorVersion = AppInfo.Version;
-            return lrc;
+            property.MadeBy = Settings.LrcMadeBy;
+            property.PropertyChanged += LrcProperties_PropertyChanged;
+
+            if (CurrentLyricsFile != null)
+            {
+                var oldProperties = (LrcProperties) CurrentLyricsFile.Properties;
+                oldProperties.PropertyChanged -= LrcProperties_PropertyChanged;
+            }
+
+            CurrentLyricsFile = lrc;
         }
 
         public async Task OpenFile()
@@ -249,7 +261,18 @@ namespace SimpleLyricsMaker.ViewModels
             {
                 case nameof(CurrentMusicFile):
                     if (CurrentMusicFile != null)
-                        CurrentLyricsFile = CreateLyricsFile();
+                        CreateLyricsFile();
+                    break;
+            }
+        }
+
+        private void LrcProperties_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            var theProperties = (LrcProperties)sender;
+            switch (e.PropertyName)
+            {
+                case nameof(theProperties.MadeBy):
+                    Settings.LrcMadeBy = theProperties.MadeBy;
                     break;
             }
         }

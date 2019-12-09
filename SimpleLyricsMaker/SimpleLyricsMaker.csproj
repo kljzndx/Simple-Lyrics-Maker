@@ -126,6 +126,7 @@
     <Compile Include="ViewModels\Extensions\StringExtension.cs" />
     <Compile Include="ViewModels\Extensions\WeakReferenceExtension.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\Settings\EditViewSettingProperties.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\EditPage.xaml.cs">
       <DependentUpon>EditPage.xaml</DependentUpon>

@@ -64,7 +64,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
 
-                    <CheckBox x:Name="ShowAllFile_CheckBox" x:Uid="/EditPage/ShowAllFile_CheckBox" Command="{Binding SwitchDisplayCommand}" CommandParameter="{Binding ElementName=ShowAllFile_CheckBox, Path=IsChecked}" HorizontalAlignment="Right"/>
+                    <CheckBox x:Name="ShowAllFile_CheckBox" x:Uid="/EditPage/ShowAllFile_CheckBox" IsChecked="{Binding Settings.ShowAll, Mode=TwoWay}" Command="{Binding SwitchDisplayCommand}" CommandParameter="{Binding ElementName=ShowAllFile_CheckBox, Path=IsChecked}" HorizontalAlignment="Right"/>
 
                     <ListView x:Name="MusicFiles_ListView" Grid.Row="1" SelectedItem="{Binding CurrentMusicFile, Mode=TwoWay}" ItemsSource="{Binding DisplayFilesList, Mode=OneWay}">
                         <ListView.ItemTemplate>
@@ -142,7 +142,7 @@
                         <TextBox x:Uid="/EditPage/LyricsFileInfo_Artist_TextBox" Grid.Column="1" Text="{Binding Artist, Mode=TwoWay}"/>
                         <TextBox x:Uid="/EditPage/LyricsFileInfo_Author_TextBox" Grid.Row="1" Text="{Binding Author, Mode=TwoWay}"/>
                         <TextBox x:Uid="/EditPage/LyricsFileInfo_Album_TextBox" Grid.Row="1" Grid.Column="1" Text="{Binding Album, Mode=TwoWay}"/>
-                        <TextBox x:Uid="/EditPage/LyricsFileInfo_MadeBy_TextBox" Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding MadeBy, Mode=TwoWay}" Width="200" HorizontalAlignment="Center"/>
+                        <TextBox x:Uid="/EditPage/LyricsFileInfo_MadeBy_TextBox" Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding MadeBy, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Center"/>
                     </Grid>
                 </Grid>
             </Grid>

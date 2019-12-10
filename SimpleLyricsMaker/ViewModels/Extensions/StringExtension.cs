@@ -12,5 +12,11 @@ namespace SimpleLyricsMaker.ViewModels.Extensions
                 return String.Join('.', strings);
             return input;
         }
+
+        public static string[] ToLines(this string input)
+        {
+            var lines = input.Split(input.Contains('\n') ? '\n' : '\r').Select(s => s.Trim()).ToArray();
+            return lines;
+        }
     }
 }

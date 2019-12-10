@@ -96,6 +96,7 @@ namespace SimpleLyricsMaker.ViewModels
             {
                 Original = String.Empty;
                 Translation = String.Empty;
+                SubmitCommand.RaiseCanExecuteChanged();
             });
 
             Messenger.Default.Register<int>(this, EditViewMessageTokens.SubtitlesTypeChanged, id =>
@@ -188,7 +189,7 @@ namespace SimpleLyricsMaker.ViewModels
             ObservableCollection<LrcLine> lrcLines = (ObservableCollection<LrcLine>) CurrentLyricsFile.Lines;
             string[] originalLines = Original.ToLines();
             string[] translationLines = Translation.ToLines();
-            bool hasTranslation = translationLines.Any();
+            bool hasTranslation = translationLines.Any(str => !String.IsNullOrWhiteSpace(str));
 
             for (var i = 0; i < originalLines.Length; i++)
             {

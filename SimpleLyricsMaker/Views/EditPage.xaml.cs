@@ -61,5 +61,10 @@ namespace SimpleLyricsMaker.Views
             Loading_ProgressRing.IsActive = false;
             Loading_StackPanel.Visibility = Visibility.Collapsed;
         }
+
+        private void SubtitlesType_Pivot_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Messenger.Default.Send(SubtitlesType_Pivot.SelectedIndex, EditViewMessageTokens.SubtitlesTypeChanged);
+        }
     }
 }

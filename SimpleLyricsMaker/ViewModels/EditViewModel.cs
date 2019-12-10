@@ -30,6 +30,7 @@ namespace SimpleLyricsMaker.ViewModels
         FilesSearched,
         FilesShowing,
         FilesShowed,
+        SubtitlesTypeChanged,
     }
 
     public class EditViewModel : ViewModelBase
@@ -92,6 +93,13 @@ namespace SimpleLyricsMaker.ViewModels
             {
                 Original = String.Empty;
                 Translation = String.Empty;
+            });
+
+            Messenger.Default.Register<int>(this, EditViewMessageTokens.SubtitlesTypeChanged, id =>
+            {
+                // 0 代表的是普通字幕
+                if (id == 0)
+                    Translation = String.Empty;
             });
         }
 

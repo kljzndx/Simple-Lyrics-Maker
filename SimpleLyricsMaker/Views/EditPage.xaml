@@ -158,9 +158,9 @@
                             <TextBlock x:Uid="/EditPage/LyricsContent_TextBlock" Style="{StaticResource MySubtitleTextBlockStyle}"/>
                         </Border>
 
-                        <Pivot Grid.Row="1">
+                        <Pivot x:Name="SubtitlesType_Pivot" Grid.Row="1" SelectionChanged="SubtitlesType_Pivot_OnSelectionChanged">
                             <PivotItem x:Uid="/EditPage/NormalSubtitles_PivotItem">
-                                <TextBox x:Uid="/EditPage/LyricsContent_Normal_TextBox" Text="{Binding Original, Mode=TwoWay}" AcceptsReturn="True"/>
+                                <TextBox x:Uid="/EditPage/LyricsContent_Normal_TextBox" Text="{Binding Original, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True"/>
                             </PivotItem>
                             <PivotItem x:Uid="/EditPage/BilingualSubtitles_PivotItem">
                                 <Grid>
@@ -179,8 +179,8 @@
                                     </Grid.RowDefinitions>
 
                                     <TextBox x:Uid="/EditPage/LyricsContent_SplitSymbol_TextBox" Grid.ColumnSpan="2" Width="100" HorizontalAlignment="Center" Text="{Binding Settings.SplitSymbol, Mode=TwoWay}"/>
-                                    <TextBox x:Uid="/EditPage/LyricsContent_Original_TextBox" Grid.Row="1" AcceptsReturn="True" Text="{Binding Original, Mode=TwoWay}"/>
-                                    <TextBox x:Uid="/EditPage/LyricsContent_Translation_TextBox" Grid.Row="1" Grid.Column="1" AcceptsReturn="True" Text="{Binding Translation, Mode=TwoWay}"/>
+                                    <TextBox x:Uid="/EditPage/LyricsContent_Original_TextBox" Grid.Row="1" AcceptsReturn="True" Text="{Binding Original, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <TextBox x:Uid="/EditPage/LyricsContent_Translation_TextBox" Grid.Row="1" Grid.Column="1" AcceptsReturn="True" Text="{Binding Translation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                 </Grid>
                             </PivotItem>
                         </Pivot>

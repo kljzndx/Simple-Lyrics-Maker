@@ -31,6 +31,7 @@ namespace SimpleLyricsMaker.ViewModels
         FilesShowing,
         FilesShowed,
         SubtitlesTypeChanged,
+        FileMade,
     }
 
     public class EditViewModel : ViewModelBase
@@ -41,6 +42,7 @@ namespace SimpleLyricsMaker.ViewModels
 
         private bool _canOpen = true;
         private bool _canSearch = true;
+        private bool _canSubmit = true;
 
         private StorageFolder _folder;
 
@@ -50,8 +52,8 @@ namespace SimpleLyricsMaker.ViewModels
         private MusicFile _currentMusicFile;
         private LrcBlock _currentLyricsFile;
 
-        private string _original;
-        private string _translation;
+        private string _original = String.Empty;
+        private string _translation = String.Empty;
 
         private ObservableCollection<MusicFile> _displayFilesList;
 
@@ -78,6 +80,7 @@ namespace SimpleLyricsMaker.ViewModels
             RefreshCommand = new RelayCommand(async () => await ScanFile(_folder), () => _allFiles?.Any() ?? false);
             SwitchDisplayCommand = new RelayCommand<bool?>(b => ShowFiles(b ?? false), b => RefreshCommand.CanExecute(null));
             SearchFilesCommand = new RelayCommand<string>(SearchFiles, s => !String.IsNullOrWhiteSpace(s) && _canSearch && RefreshCommand.CanExecute(null));
+            SubmitCommand = new RelayCommand(SetUpLyricsContent, () => CurrentLyricsFile != null && _canSubmit);
 
             Messenger.Default.Register<string>(this, EditViewMessageTokens.FolderOpened, async msg => await ScanFile(_folder));
             Messenger.Default.Register<string>(this, EditViewMessageTokens.FileScanned, msg => ShowFiles(Settings.ShowAll));
@@ -150,6 +153,7 @@ namespace SimpleLyricsMaker.ViewModels
         public RelayCommand RefreshCommand { get; }
         public RelayCommand<bool?> SwitchDisplayCommand { get; }
         public RelayCommand<string> SearchFilesCommand { get; }
+        public RelayCommand SubmitCommand { get; }
 
         public void CreateLyricsFile()
         {
@@ -175,6 +179,29 @@ namespace SimpleLyricsMaker.ViewModels
             }
 
             CurrentLyricsFile = lrc;
+        }
+
+        public void SetUpLyricsContent()
+        {
+            _canSubmit = false;
+            SubmitCommand.RaiseCanExecuteChanged();
+            ObservableCollection<LrcLine> lrcLines = (ObservableCollection<LrcLine>) CurrentLyricsFile.Lines;
+            string[] originalLines = Original.ToLines();
+            string[] translationLines = Translation.ToLines();
+            bool hasTranslation = translationLines.Any();
+
+            for (var i = 0; i < originalLines.Length; i++)
+            {
+                string result = originalLines[i];
+                if (hasTranslation)
+                    result += $" {Settings.SplitSymbol} {translationLines[i < translationLines.Length ? i : translationLines.Length]}";
+
+                lrcLines.Add(new LrcLine(TimeSpan.Zero, result));
+            }
+
+            _canSubmit = true;
+            SubmitCommand.RaiseCanExecuteChanged();
+            Messenger.Default.Send(new KeyValuePair<MusicFile, LrcBlock>(CurrentMusicFile, CurrentLyricsFile), EditViewMessageTokens.FileMade);
         }
 
         #region Explorer

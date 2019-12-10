@@ -186,7 +186,7 @@
                         </Pivot>
                     </Grid>
 
-                    <Button x:Uid="/EditPage/Submit_Button" Grid.Row="2" HorizontalAlignment="Center"/>
+                    <Button x:Uid="/EditPage/Submit_Button" Grid.Row="2" HorizontalAlignment="Center" Command="{Binding SubmitCommand}"/>
                 </Grid>
             </ScrollViewer>
 

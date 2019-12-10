@@ -110,6 +110,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
                     <Grid Background="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}" Margin="0,0,0,4">
@@ -184,6 +185,8 @@
                             </PivotItem>
                         </Pivot>
                     </Grid>
+
+                    <Button x:Uid="/EditPage/Submit_Button" Grid.Row="2" HorizontalAlignment="Center"/>
                 </Grid>
             </ScrollViewer>
 

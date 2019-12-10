@@ -189,4 +189,7 @@
   <data name="ShowAllFile_CheckBox.Content" xml:space="preserve">
     <value>显示所有音乐文件</value>
   </data>
+  <data name="Submit_Button.Content" xml:space="preserve">
+    <value>提交并创建</value>
+  </data>
 </root>

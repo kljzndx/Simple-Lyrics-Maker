@@ -84,68 +84,108 @@
         </SplitView.Pane>
 
         <Grid>
-            <Grid x:Name="LyricsFileInfo_Grid" Margin="12">
-                <interactivity:Interaction.Behaviors>
-                    <interactions:DataTriggerBehavior Binding="{Binding CurrentLyricsFile, Mode=OneWay}" Value="{x:Null}" ComparisonCondition="Equal">
-                        <interactions:ChangePropertyAction PropertyName="Visibility" Value="Collapsed"/>
-                    </interactions:DataTriggerBehavior>
-                    <interactions:DataTriggerBehavior Binding="{Binding CurrentLyricsFile, Mode=OneWay}" Value="{x:Null}" ComparisonCondition="NotEqual">
-                        <interactions:ChangePropertyAction PropertyName="Visibility" Value="Visible"/>
-                    </interactions:DataTriggerBehavior>
-                </interactivity:Interaction.Behaviors>
+            <ScrollViewer>
+                <Grid x:Name="LyricsFileInfo_Grid" Margin="12">
+                    <interactivity:Interaction.Behaviors>
+                        <interactions:DataTriggerBehavior Binding="{Binding CurrentLyricsFile, Mode=OneWay}" Value="{x:Null}" ComparisonCondition="Equal">
+                            <interactions:ChangePropertyAction PropertyName="Visibility" Value="Collapsed"/>
+                        </interactions:DataTriggerBehavior>
+                        <interactions:DataTriggerBehavior Binding="{Binding CurrentLyricsFile, Mode=OneWay}" Value="{x:Null}" ComparisonCondition="NotEqual">
+                            <interactions:ChangePropertyAction PropertyName="Visibility" Value="Visible"/>
+                        </interactions:DataTriggerBehavior>
+                    </interactivity:Interaction.Behaviors>
 
-                <Grid.Resources>
-                    <Style x:Key="TitleBorder_Style" TargetType="Border">
-                        <Setter Property="Background" Value="{ThemeResource SystemControlBackgroundChromeMediumBrush}"/>
-                        <Setter Property="BorderBrush" Value="{ThemeResource SystemControlBackgroundBaseHighBrush}"/>
-                        <Setter Property="BorderThickness" Value="0,0,0,1"/>
-                        <Setter Property="Padding" Value="0,8"/>
-                    </Style>
-                    <Style x:Key="MySubtitleTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource SubtitleTextBlockStyle}">
-                        <Setter Property="HorizontalTextAlignment" Value="Center"/>
-                    </Style>
-                </Grid.Resources>
+                    <Grid.Resources>
+                        <Style x:Key="TitleBorder_Style" TargetType="Border">
+                            <Setter Property="Background" Value="{ThemeResource SystemControlBackgroundChromeMediumBrush}"/>
+                            <Setter Property="BorderBrush" Value="{ThemeResource SystemControlBackgroundBaseHighBrush}"/>
+                            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                            <Setter Property="Padding" Value="0,8"/>
+                        </Style>
+                        <Style x:Key="MySubtitleTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource SubtitleTextBlockStyle}">
+                            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                        </Style>
+                    </Grid.Resources>
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-
-                <Grid Background="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
 
-                    <Border Style="{ThemeResource TitleBorder_Style}">
-                        <TextBlock x:Uid="/EditPage/LyricsFileProperties_TextBlock" Style="{ThemeResource MySubtitleTextBlockStyle}"/>
-                    </Border>
-
-                    <Grid Grid.Row="1" Padding="4" DataContext="{Binding CurrentLyricsFile.Properties, Mode=OneWay}">
-                        <Grid.Resources>
-                            <Style TargetType="TextBox">
-                                <Setter Property="Margin" Value="4"/>
-                            </Style>
-                        </Grid.Resources>
-
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
+                    <Grid Background="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}" Margin="0,0,0,4">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
 
-                        <TextBox x:Uid="/EditPage/LyricsFileInfo_Title_TextBox" Text="{Binding Title, Mode=TwoWay}"/>
-                        <TextBox x:Uid="/EditPage/LyricsFileInfo_Artist_TextBox" Grid.Column="1" Text="{Binding Artist, Mode=TwoWay}"/>
-                        <TextBox x:Uid="/EditPage/LyricsFileInfo_Author_TextBox" Grid.Row="1" Text="{Binding Author, Mode=TwoWay}"/>
-                        <TextBox x:Uid="/EditPage/LyricsFileInfo_Album_TextBox" Grid.Row="1" Grid.Column="1" Text="{Binding Album, Mode=TwoWay}"/>
-                        <TextBox x:Uid="/EditPage/LyricsFileInfo_MadeBy_TextBox" Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding MadeBy, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Center"/>
+                        <Border Style="{ThemeResource TitleBorder_Style}">
+                            <TextBlock x:Uid="/EditPage/LyricsFileProperties_TextBlock" Style="{ThemeResource MySubtitleTextBlockStyle}"/>
+                        </Border>
+
+                        <Grid Grid.Row="1" Padding="4" DataContext="{Binding CurrentLyricsFile.Properties, Mode=OneWay}">
+                            <Grid.Resources>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="Margin" Value="4"/>
+                                </Style>
+                            </Grid.Resources>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <TextBox x:Uid="/EditPage/LyricsFileInfo_Title_TextBox" Text="{Binding Title, Mode=TwoWay}"/>
+                            <TextBox x:Uid="/EditPage/LyricsFileInfo_Artist_TextBox" Grid.Column="1" Text="{Binding Artist, Mode=TwoWay}"/>
+                            <TextBox x:Uid="/EditPage/LyricsFileInfo_Author_TextBox" Grid.Row="1" Text="{Binding Author, Mode=TwoWay}"/>
+                            <TextBox x:Uid="/EditPage/LyricsFileInfo_Album_TextBox" Grid.Row="1" Grid.Column="1" Text="{Binding Album, Mode=TwoWay}"/>
+                            <TextBox x:Uid="/EditPage/LyricsFileInfo_MadeBy_TextBox" Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding MadeBy, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Center"/>
+                        </Grid>
+                    </Grid>
+
+                    <Grid Grid.Row="1" Height="500" Margin="0,4" Background="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Border Style="{ThemeResource TitleBorder_Style}">
+                            <TextBlock x:Uid="/EditPage/LyricsContent_TextBlock" Style="{StaticResource MySubtitleTextBlockStyle}"/>
+                        </Border>
+
+                        <Pivot Grid.Row="1">
+                            <PivotItem x:Uid="/EditPage/NormalSubtitles_PivotItem">
+                                <TextBox x:Uid="/EditPage/LyricsContent_Normal_TextBox" Text="{Binding Original, Mode=TwoWay}" AcceptsReturn="True"/>
+                            </PivotItem>
+                            <PivotItem x:Uid="/EditPage/BilingualSubtitles_PivotItem">
+                                <Grid>
+                                    <Grid.Resources>
+                                        <Style TargetType="TextBox">
+                                            <Setter Property="Margin" Value="4"/>
+                                        </Style>
+                                    </Grid.Resources>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBox x:Uid="/EditPage/LyricsContent_SplitSymbol_TextBox" Grid.ColumnSpan="2" Width="100" HorizontalAlignment="Center" Text="{Binding Settings.SplitSymbol, Mode=TwoWay}"/>
+                                    <TextBox x:Uid="/EditPage/LyricsContent_Original_TextBox" Grid.Row="1" AcceptsReturn="True" Text="{Binding Original, Mode=TwoWay}"/>
+                                    <TextBox x:Uid="/EditPage/LyricsContent_Translation_TextBox" Grid.Row="1" Grid.Column="1" AcceptsReturn="True" Text="{Binding Translation, Mode=TwoWay}"/>
+                                </Grid>
+                            </PivotItem>
+                        </Pivot>
                     </Grid>
                 </Grid>
-            </Grid>
+            </ScrollViewer>
 
             <StackPanel x:Name="QuickMenu_StackPanel" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <interactivity:Interaction.Behaviors>

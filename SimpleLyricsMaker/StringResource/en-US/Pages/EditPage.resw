@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BilingualSubtitles_PivotItem.Header" xml:space="preserve">
+    <value>Bilingual subtitles</value>
+  </data>
   <data name="LoadingInfo_FileScanning_Text1" xml:space="preserve">
     <value>Scanning </value>
   </data>
@@ -125,6 +128,21 @@
   </data>
   <data name="LoadingInfo_FilesSearching_Text1" xml:space="preserve">
     <value>Searching </value>
+  </data>
+  <data name="LyricsContent_Normal_TextBox.Header" xml:space="preserve">
+    <value>Content</value>
+  </data>
+  <data name="LyricsContent_Original_TextBox.Header" xml:space="preserve">
+    <value>Original</value>
+  </data>
+  <data name="LyricsContent_SplitSymbol_TextBox.Header" xml:space="preserve">
+    <value>Split symbol</value>
+  </data>
+  <data name="LyricsContent_TextBlock.Text" xml:space="preserve">
+    <value>Lyrics content</value>
+  </data>
+  <data name="LyricsContent_Translation_TextBox.Header" xml:space="preserve">
+    <value>Translation</value>
   </data>
   <data name="LyricsFileInfo_Album_TextBox.Header" xml:space="preserve">
     <value>Album:</value>
@@ -143,6 +161,9 @@
   </data>
   <data name="LyricsFileProperties_TextBlock.Text" xml:space="preserve">
     <value>Lyrics file properties</value>
+  </data>
+  <data name="NormalSubtitles_PivotItem.Header" xml:space="preserve">
+    <value>Norma subtitles</value>
   </data>
   <data name="OpenFile_AppBarButton.Label" xml:space="preserve">
     <value>Open file</value>

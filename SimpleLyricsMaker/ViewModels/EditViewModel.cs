@@ -49,6 +49,9 @@ namespace SimpleLyricsMaker.ViewModels
         private MusicFile _currentMusicFile;
         private LrcBlock _currentLyricsFile;
 
+        private string _original;
+        private string _translation;
+
         private ObservableCollection<MusicFile> _displayFilesList;
 
         static EditViewModel()
@@ -84,6 +87,12 @@ namespace SimpleLyricsMaker.ViewModels
                 CurrentLyricsFile = null;
             });
             Messenger.Default.Register<ObservableCollection<MusicFile>>(this, EditViewMessageTokens.FilesShowed, list => CurrentMusicFile = DisplayFilesList?.FirstOrDefault());
+
+            Messenger.Default.Register<string>(this, EditViewMessageTokens.FilePicked, msg =>
+            {
+                Original = String.Empty;
+                Translation = String.Empty;
+            });
         }
 
         public MusicFile CurrentMusicFile
@@ -111,6 +120,18 @@ namespace SimpleLyricsMaker.ViewModels
                 Set(ref _displayFilesList, value);
                 Messenger.Default.Send(_displayFilesList, EditViewMessageTokens.FilesShowed);
             }
+        }
+
+        public string Original
+        {
+            get => _original;
+            set => Set(ref _original, value);
+        }
+
+        public string Translation
+        {
+            get => _translation;
+            set => Set(ref _translation, value);
         }
 
         public EditViewSettingProperties Settings { get; } = EditViewSettingProperties.Current;

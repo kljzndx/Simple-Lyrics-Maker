@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BilingualSubtitles_PivotItem.Header" xml:space="preserve">
+    <value>双语字幕</value>
+  </data>
   <data name="LoadingInfo_FileScanning_Text1" xml:space="preserve">
     <value>正在扫描 </value>
   </data>
@@ -125,6 +128,21 @@
   </data>
   <data name="LoadingInfo_FilesSearching_Text1" xml:space="preserve">
     <value>正在搜索 </value>
+  </data>
+  <data name="LyricsContent_Normal_TextBox.Header" xml:space="preserve">
+    <value>内容</value>
+  </data>
+  <data name="LyricsContent_Original_TextBox.Header" xml:space="preserve">
+    <value>原文</value>
+  </data>
+  <data name="LyricsContent_SplitSymbol_TextBox.Header" xml:space="preserve">
+    <value>分隔符</value>
+  </data>
+  <data name="LyricsContent_TextBlock.Text" xml:space="preserve">
+    <value>歌词内容</value>
+  </data>
+  <data name="LyricsContent_Translation_TextBox.Header" xml:space="preserve">
+    <value>译文</value>
   </data>
   <data name="LyricsFileInfo_Album_TextBox.Header" xml:space="preserve">
     <value>专辑：</value>
@@ -143,6 +161,9 @@
   </data>
   <data name="LyricsFileProperties_TextBlock.Text" xml:space="preserve">
     <value>歌词文件属性</value>
+  </data>
+  <data name="NormalSubtitles_PivotItem.Header" xml:space="preserve">
+    <value>普通字幕</value>
   </data>
   <data name="OpenFile_AppBarButton.Label" xml:space="preserve">
     <value>打开文件</value>

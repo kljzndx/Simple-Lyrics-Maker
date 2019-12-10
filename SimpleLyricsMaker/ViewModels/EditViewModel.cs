@@ -97,6 +97,7 @@ namespace SimpleLyricsMaker.ViewModels
 
             Messenger.Default.Register<int>(this, EditViewMessageTokens.SubtitlesTypeChanged, id =>
             {
+                // 当切换到普通字幕模式时清空“译文”文本框
                 // 0 代表的是普通字幕
                 if (id == 0)
                     Translation = String.Empty;

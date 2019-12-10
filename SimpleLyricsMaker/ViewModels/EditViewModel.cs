@@ -177,6 +177,8 @@ namespace SimpleLyricsMaker.ViewModels
             CurrentLyricsFile = lrc;
         }
 
+        #region Explorer
+
         public async Task OpenFile()
         {
             _canOpen = false;
@@ -205,8 +207,6 @@ namespace SimpleLyricsMaker.ViewModels
             OpenFileCommand.RaiseCanExecuteChanged();
             OpenFolderCommand.RaiseCanExecuteChanged();
         }
-
-        #region Explorer
 
         public async Task OpenFolder()
         {

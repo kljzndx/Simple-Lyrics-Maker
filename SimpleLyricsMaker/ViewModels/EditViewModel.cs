@@ -89,7 +89,11 @@ namespace SimpleLyricsMaker.ViewModels
         public MusicFile CurrentMusicFile
         {
             get => _currentMusicFile;
-            set => Set(ref _currentMusicFile, value);
+            set
+            {
+                Set(ref _currentMusicFile, value);
+                Messenger.Default.Send(value?.FileName, EditViewMessageTokens.FilePicked);
+            }
         }
 
         public LrcBlock CurrentLyricsFile
@@ -165,8 +169,6 @@ namespace SimpleLyricsMaker.ViewModels
                 }
 
                 CurrentMusicFile = mf;
-
-                Messenger.Default.Send(mf.FileName, EditViewMessageTokens.FilePicked);
             }
 
             _canOpen = true;

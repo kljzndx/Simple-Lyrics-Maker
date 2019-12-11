@@ -129,10 +129,10 @@
   <data name="LoadingInfo_FilesSearching_Text1" xml:space="preserve">
     <value>正在搜索 </value>
   </data>
-  <data name="LyricsContent_Normal_TextBox.Header" xml:space="preserve">
+  <data name="LyricsContent_Normal_TextArea.Header" xml:space="preserve">
     <value>内容</value>
   </data>
-  <data name="LyricsContent_Original_TextBox.Header" xml:space="preserve">
+  <data name="LyricsContent_Original_TextArea.Header" xml:space="preserve">
     <value>原文</value>
   </data>
   <data name="LyricsContent_SplitSymbol_TextBox.Header" xml:space="preserve">
@@ -141,7 +141,7 @@
   <data name="LyricsContent_TextBlock.Text" xml:space="preserve">
     <value>歌词内容</value>
   </data>
-  <data name="LyricsContent_Translation_TextBox.Header" xml:space="preserve">
+  <data name="LyricsContent_Translation_TextArea.Header" xml:space="preserve">
     <value>译文</value>
   </data>
   <data name="LyricsFileInfo_Album_TextBox.Header" xml:space="preserve">

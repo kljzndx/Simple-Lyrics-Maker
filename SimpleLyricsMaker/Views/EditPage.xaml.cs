@@ -19,6 +19,7 @@ using HappyStudio.Parsing.Subtitle.LRC;
 using HappyStudio.UwpToolsLibrary.Auxiliarys;
 using SimpleLyricsMaker.Models;
 using SimpleLyricsMaker.ViewModels;
+using SimpleLyricsMaker.Views.Controls;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
@@ -72,6 +73,12 @@ namespace SimpleLyricsMaker.Views
         private void SubtitlesType_Pivot_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Messenger.Default.Send(SubtitlesType_Pivot.SelectedIndex, EditViewMessageTokens.SubtitlesTypeChanged);
+        }
+
+        private void LyricsContent_TextArea_OnKeyUpEx(object sender, TextAreaKeyUpEventArgs e)
+        {
+            if (e.PressCtrl && e.Key == VirtualKey.Enter)
+                Submit_Button.Command?.Execute(null);
         }
     }
 }

@@ -15,6 +15,9 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using GalaSoft.MvvmLight.Messaging;
+using HappyStudio.Parsing.Subtitle.LRC;
+using HappyStudio.UwpToolsLibrary.Auxiliarys;
+using SimpleLyricsMaker.Models;
 using SimpleLyricsMaker.ViewModels;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
@@ -46,6 +49,10 @@ namespace SimpleLyricsMaker.Views
 
             Messenger.Default.Register<string>(this, EditViewMessageTokens.FilesSearching, msg => ShowLoading(FileSearchingText1, msg, String.Empty));
             Messenger.Default.Register<string>(this, EditViewMessageTokens.FilesSearched, msg => HideLoading());
+            Messenger.Default.Register<KeyValuePair<MusicFile, LrcBlock>>(this, EditViewMessageTokens.FileMade, msg =>
+            {
+                MessageBox.ShowAsync(msg.Value.ToString(), "Close");
+            });
         }
 
         private void ShowLoading(string left, string center, string right)

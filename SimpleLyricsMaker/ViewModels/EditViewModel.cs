@@ -189,8 +189,10 @@ namespace SimpleLyricsMaker.ViewModels
             ObservableCollection<LrcLine> lrcLines = (ObservableCollection<LrcLine>) CurrentLyricsFile.Lines;
             string[] originalLines = Original.ToLines();
             string[] translationLines = Translation.ToLines();
+
             bool hasTranslation = translationLines.Any(str => !String.IsNullOrWhiteSpace(str));
 
+            lrcLines.Clear();
             for (var i = 0; i < originalLines.Length; i++)
             {
                 string result = originalLines[i];

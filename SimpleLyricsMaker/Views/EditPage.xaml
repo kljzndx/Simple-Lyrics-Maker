@@ -64,7 +64,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
 
-                    <CheckBox x:Name="ShowAllFile_CheckBox" x:Uid="/EditPage/ShowAllFile_CheckBox" IsChecked="{Binding Settings.ShowAll, Mode=TwoWay}" Command="{Binding SwitchDisplayCommand}" CommandParameter="{Binding ElementName=ShowAllFile_CheckBox, Path=IsChecked}" HorizontalAlignment="Right"/>
+                    <CheckBox x:Name="ShowAllFile_CheckBox" x:Uid="/EditPage/ShowAllFile_CheckBox" Margin="8,4" IsChecked="{Binding Settings.ShowAll, Mode=TwoWay}" Command="{Binding SwitchDisplayCommand}" CommandParameter="{Binding ElementName=ShowAllFile_CheckBox, Path=IsChecked}" HorizontalAlignment="Right"/>
 
                     <ListView x:Name="MusicFiles_ListView" Grid.Row="1" SelectedItem="{Binding CurrentMusicFile, Mode=TwoWay}" ItemsSource="{Binding DisplayFilesList, Mode=OneWay}">
                         <ListView.ItemTemplate>

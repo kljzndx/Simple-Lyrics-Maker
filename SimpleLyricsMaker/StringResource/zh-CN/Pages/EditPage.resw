@@ -192,4 +192,7 @@
   <data name="Submit_Button.Content" xml:space="preserve">
     <value>提交并创建</value>
   </data>
+  <data name="Submit_Button.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>提交并创建 (Ctrl + Enter)</value>
+  </data>
 </root>

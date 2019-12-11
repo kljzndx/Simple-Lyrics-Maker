@@ -186,7 +186,11 @@
                         </Pivot>
                     </Grid>
 
-                    <Button x:Uid="/EditPage/Submit_Button" Grid.Row="2" HorizontalAlignment="Center" Command="{Binding SubmitCommand}"/>
+                    <Button x:Uid="/EditPage/Submit_Button" Grid.Row="2" HorizontalAlignment="Center" Command="{Binding SubmitCommand}">
+                        <Button.KeyboardAccelerators>
+                            <KeyboardAccelerator Modifiers="Control" Key="Enter" ScopeOwner="{Binding ElementName=LyricsFileInfo_Grid}"/>
+                        </Button.KeyboardAccelerators>
+                    </Button>
                 </Grid>
             </ScrollViewer>
 

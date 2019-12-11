@@ -186,9 +186,10 @@ namespace SimpleLyricsMaker.ViewModels
         {
             _canSubmit = false;
             SubmitCommand.RaiseCanExecuteChanged();
+
             ObservableCollection<LrcLine> lrcLines = (ObservableCollection<LrcLine>) CurrentLyricsFile.Lines;
-            string[] originalLines = Original.ToLines();
-            string[] translationLines = Translation.ToLines();
+            string[] originalLines = Original.Trim().ToLines();
+            string[] translationLines = Translation.Trim().ToLines();
 
             bool hasTranslation = translationLines.Any(str => !String.IsNullOrWhiteSpace(str));
 

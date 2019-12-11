@@ -7,15 +7,15 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="53cfc0ed-48ce-4c1e-9759-bd9a97eb6ce2"
-    Publisher="CN=kljzn"
-    Version="1.0.0.0" />
+    Name="22643.SimpleLyricsMaker"
+    Publisher="CN=7A99FA60-940D-46A9-B3FA-D93317D891AB"
+    Version="1.1.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="53cfc0ed-48ce-4c1e-9759-bd9a97eb6ce2" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="d54efbea-c6d8-4bf0-8158-db9d28813dad" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>ms-resource:/App/Name</DisplayName>
-    <PublisherDisplayName>kljzn</PublisherDisplayName>
+    <PublisherDisplayName>快乐工作室</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 

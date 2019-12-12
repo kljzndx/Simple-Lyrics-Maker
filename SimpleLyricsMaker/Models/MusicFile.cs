@@ -9,19 +9,20 @@ namespace SimpleLyricsMaker.Models
 {
     public class MusicFile
     {
-        private readonly WeakReference<StorageFile> _file = new WeakReference<StorageFile>(null);
+        private readonly StorageFile _file;
         private readonly WeakReference<StorageItemThumbnail> _albumCoverSource = new WeakReference<StorageItemThumbnail>(null);
         private readonly WeakReference<BitmapImage> _albumCover = new WeakReference<BitmapImage>(null);
 
         private MusicFile(StorageFile file, MusicProperties musicProperties)
         {
+            _file = file;
+            FileName = file.Name;
+            FilePath = file.Path;
+
             Title = musicProperties.Title;
             Artist = musicProperties.Artist;
             Author = String.Join(", ", musicProperties.Writers);
             Album = musicProperties.Album;
-
-            FileName = file.Name;
-            FilePath = file.Path;
         }
 
         public string Title { get; }
@@ -32,16 +33,16 @@ namespace SimpleLyricsMaker.Models
         public string FileName { get; }
         public string FilePath { get; }
 
-        public async Task<StorageFile> GetFile()
+        public StorageFile GetFile()
         {
-            return await _file.GetTarget(async () => await StorageFile.GetFileFromPathAsync(FilePath));
+            return _file;
         }
 
         public async Task<StorageItemThumbnail> GetAlbumCoverSource()
         {
             return await _albumCoverSource.GetTarget(async () =>
             {
-                var file = await GetFile();
+                var file = GetFile();
                 return await file.GetThumbnailAsync(ThumbnailMode.MusicView);
             });
         }

@@ -52,7 +52,7 @@ namespace SimpleLyricsMaker.Views
             Messenger.Default.Register<string>(this, EditViewMessageTokens.FilesSearched, msg => HideLoading());
             Messenger.Default.Register<KeyValuePair<MusicFile, LrcBlock>>(this, EditViewMessageTokens.FileMade, msg =>
             {
-                MessageBox.ShowAsync(msg.Value.ToString(), "Close");
+                Frame.Navigate(typeof(TimePointPage), msg);
             });
         }
 

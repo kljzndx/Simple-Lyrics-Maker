@@ -48,6 +48,7 @@ namespace SimpleLyricsMaker.Views.Controls
         public TextArea()
         {
             this.InitializeComponent();
+            Root_TextBox.DataContext = this;
 
             Root_TextBox.AddHandler(KeyDownEvent, new KeyEventHandler(Root_TextBox_OnKeyDown), true);
             Root_TextBox.AddHandler(KeyUpEvent, new KeyEventHandler(Root_TextBox_OnKeyUp), true);

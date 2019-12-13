@@ -9,5 +9,5 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <TextBox x:Name="Root_TextBox" Text="{x:Bind Text, Mode=TwoWay}" Header="{x:Bind Header, Mode=OneWay}" PlaceholderText="{x:Bind PlaceholderText, Mode=OneWay}" AcceptsReturn="True"/>
+    <TextBox x:Name="Root_TextBox" Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{x:Bind Header, Mode=OneWay}" PlaceholderText="{x:Bind PlaceholderText, Mode=OneWay}" AcceptsReturn="True"/>
 </UserControl>

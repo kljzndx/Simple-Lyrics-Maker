@@ -11,10 +11,11 @@ namespace SimpleLyricsMaker.ViewModels
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<EditViewModel>();
+            SimpleIoc.Default.Register<TimePointViewModel>();
         }
 
         public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
         public EditViewModel Edit => ServiceLocator.Current.GetInstance<EditViewModel>();
-
+        public TimePointViewModel TimePoint => ServiceLocator.Current.GetInstance<TimePointViewModel>();
     }
 }

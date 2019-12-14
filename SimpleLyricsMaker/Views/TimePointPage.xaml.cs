@@ -7,6 +7,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Media.Core;
 using Windows.Media.Playback;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -31,6 +32,7 @@ namespace SimpleLyricsMaker.Views
         public TimePointPage()
         {
             this.InitializeComponent();
+            Main_MediaPlayerElement.MediaPlayer.PlaybackSession.PositionChanged += PlaybackSession_PositionChanged;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -50,5 +52,11 @@ namespace SimpleLyricsMaker.Views
 
             Main_MediaPlayerElement.MediaPlayer.Pause();
         }
+        private async void PlaybackSession_PositionChanged(MediaPlaybackSession sender, object args)
+        {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () => Messenger.Default.Send(sender.Position, TimePointViewMessageTokens.PositionChanged));
+        }
+
     }
 }

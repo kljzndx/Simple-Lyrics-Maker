@@ -132,10 +132,12 @@
     <Compile Include="ViewModels\EditViewModel.cs" />
     <Compile Include="ViewModels\Extensions\ExceptionExtension.cs" />
     <Compile Include="ViewModels\Extensions\StringExtension.cs" />
+    <Compile Include="ViewModels\Extensions\TimeSpanExtension.cs" />
     <Compile Include="ViewModels\Extensions\WeakReferenceExtension.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\Settings\EditViewSettingProperties.cs" />
     <Compile Include="ViewModels\TimePointViewModel.cs" />
+    <Compile Include="ViewModels\ValueConverters\TimeSpanToLyricsTimeString.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\Controls\TextArea.xaml.cs">
       <DependentUpon>TextArea.xaml</DependentUpon>
@@ -191,7 +193,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="HappyStudio.Subtitle.Control.UWP">
-      <Version>1.3.1</Version>
+      <Version>1.4.1</Version>
     </PackageReference>
     <PackageReference Include="HappyStudio.UwpToolsLibrary.Auxiliarys">
       <Version>1.4.0</Version>

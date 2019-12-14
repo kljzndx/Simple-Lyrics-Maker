@@ -2,16 +2,22 @@
     x:Class="SimpleLyricsMaker.Views.TimePointPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:SimpleLyricsMaker.Views"
+    xmlns:cvt="using:SimpleLyricsMaker.ViewModels.ValueConverters"
+    xmlns:msctrl="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     DataContext="{Binding Source={StaticResource Locator}, Path=TimePoint}">
 
+    <Page.Resources>
+        <cvt:TimeSpanToLyricsTimeString x:Key="TimeSpanToLyricsTimeString"/>
+    </Page.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <MediaPlayerElement x:Name="Main_MediaPlayerElement" AutoPlay="True" AreTransportControlsEnabled="True" VerticalAlignment="Top">
@@ -19,5 +25,16 @@
                 <MediaTransportControls Style="{StaticResource MyMediaTransportControls}" IsCompact="True" IsFullWindowButtonVisible="False" IsFullWindowEnabled="False" IsPlaybackRateButtonVisible="True" IsPlaybackRateEnabled="True" IsZoomButtonVisible="False" IsZoomEnabled="False"/>
             </MediaPlayerElement.TransportControls>
         </MediaPlayerElement>
+
+        <msctrl:DataGrid x:Name="Lyrics_DataGrid" Grid.Row="1" ItemsSource="{Binding LrcBlock.Lines, Mode=OneWay}" SelectedItem="{Binding SelectedLine, Mode=TwoWay}" AutoGenerateColumns="False">
+            <msctrl:DataGrid.Columns>
+                <msctrl:DataGridTextColumn Header="Start time" Binding="{Binding StartTime, Mode=OneWay, Converter={StaticResource TimeSpanToLyricsTimeString}}"/>
+                <msctrl:DataGridTextColumn MinWidth="300" Header="Content" Binding="{Binding Content, Mode=TwoWay}" IsReadOnly="False"/>
+            </msctrl:DataGrid.Columns>
+        </msctrl:DataGrid>
+
+        <StackPanel Grid.Row="2" HorizontalAlignment="Center" Orientation="Horizontal">
+            <Button Content="打点" Command="{Binding SetUpTimeCommand}"/>
+        </StackPanel>
     </Grid>
 </Page>

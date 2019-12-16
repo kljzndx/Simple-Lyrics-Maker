@@ -29,6 +29,8 @@ namespace SimpleLyricsMaker.Views
     /// </summary>
     public sealed partial class TimePointPage : Page
     {
+        private int _lastSelectedId;
+
         public TimePointPage()
         {
             this.InitializeComponent();
@@ -42,6 +44,7 @@ namespace SimpleLyricsMaker.Views
 
             if (e.Parameter is KeyValuePair<MusicFile, LrcBlock> kvp)
             {
+                _lastSelectedId = -1;
                 Messenger.Default.Send(kvp, TimePointViewMessageTokens.FileReceived);
                 Main_MediaPlayerElement.Source = new MediaPlaybackItem(MediaSource.CreateFromStorageFile(kvp.Key.GetFile()));
             }
@@ -66,7 +69,16 @@ namespace SimpleLyricsMaker.Views
 
         private void OptionArea_Pivot_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            SetUpTime_AppBarButton.Visibility = OptionArea_Pivot.SelectedIndex == 0 ? Visibility.Visible : Visibility.Collapsed;
+            switch (OptionArea_Pivot.SelectedIndex)
+            {
+                case 0 when _lastSelectedId != -1:
+                    Lyrics_DataGrid.SelectedIndex = _lastSelectedId;
+                    break;
+                case 1:
+                    _lastSelectedId = Lyrics_DataGrid.SelectedIndex;
+                    Lyrics_DataGrid.SelectedIndex = -1;
+                    break;
+            }
         }
     }
 }

@@ -32,6 +32,7 @@ namespace SimpleLyricsMaker.Views
         public TimePointPage()
         {
             this.InitializeComponent();
+
             Main_MediaPlayerElement.MediaPlayer.PlaybackSession.PositionChanged += PlaybackSession_PositionChanged;
         }
 
@@ -52,11 +53,20 @@ namespace SimpleLyricsMaker.Views
 
             Main_MediaPlayerElement.MediaPlayer.Pause();
         }
+
         private async void PlaybackSession_PositionChanged(MediaPlaybackSession sender, object args)
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                () => Messenger.Default.Send(sender.Position, TimePointViewMessageTokens.PositionChanged));
+            () =>
+            {
+                Messenger.Default.Send(sender.Position, TimePointViewMessageTokens.PositionChanged);
+                Main_ScrollSubtitlePreview.Position = sender.Position;
+            });
         }
 
+        private void OptionArea_Pivot_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SetUpTime_AppBarButton.Visibility = OptionArea_Pivot.SelectedIndex == 0 ? Visibility.Visible : Visibility.Collapsed;
+        }
     }
 }

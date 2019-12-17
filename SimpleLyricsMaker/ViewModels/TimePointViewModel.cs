@@ -28,11 +28,11 @@ namespace SimpleLyricsMaker.ViewModels
         {
             SetUpTimeCommand = new RelayCommand(SetUpTime, () => SelectedId != -1);
 
-            Messenger.Default.Register<KeyValuePair<MusicFile, LrcBlock>>(this, TimePointViewMessageTokens.FileReceived,
-            kvp =>
+            Messenger.Default.Register<SourceInfo>(this, TimePointViewMessageTokens.FileReceived,
+            info =>
             {
-                MusicFile = kvp.Key;
-                LrcBlock = kvp.Value;
+                MusicFile = info.MusicFile;
+                LrcBlock = info.LrcBlock;
                 SelectedId = 0;
             });
 

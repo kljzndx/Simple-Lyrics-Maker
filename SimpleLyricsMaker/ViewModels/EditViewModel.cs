@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.ServiceModel.Channels;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Pickers;
@@ -204,7 +203,7 @@ namespace SimpleLyricsMaker.ViewModels
 
             _canSubmit = true;
             SubmitCommand.RaiseCanExecuteChanged();
-            Messenger.Default.Send(new KeyValuePair<MusicFile, LrcBlock>(CurrentMusicFile, CurrentLyricsFile), EditViewMessageTokens.FileMade);
+            Messenger.Default.Send(new SourceInfo(_folder, CurrentMusicFile, CurrentLyricsFile), EditViewMessageTokens.FileMade);
         }
 
         #region Explorer

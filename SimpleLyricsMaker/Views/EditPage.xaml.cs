@@ -50,9 +50,9 @@ namespace SimpleLyricsMaker.Views
 
             Messenger.Default.Register<string>(this, EditViewMessageTokens.FilesSearching, msg => ShowLoading(FileSearchingText1, msg, String.Empty));
             Messenger.Default.Register<string>(this, EditViewMessageTokens.FilesSearched, msg => HideLoading());
-            Messenger.Default.Register<KeyValuePair<MusicFile, LrcBlock>>(this, EditViewMessageTokens.FileMade, msg =>
+            Messenger.Default.Register<SourceInfo>(this, EditViewMessageTokens.FileMade, info =>
             {
-                Frame.Navigate(typeof(TimePointPage), msg);
+                Frame.Navigate(typeof(TimePointPage), info);
             });
         }
 

@@ -42,11 +42,11 @@ namespace SimpleLyricsMaker.Views
         {
             base.OnNavigatedTo(e);
 
-            if (e.Parameter is KeyValuePair<MusicFile, LrcBlock> kvp)
+            if (e.Parameter is SourceInfo info)
             {
                 _lastSelectedId = -1;
-                Messenger.Default.Send(kvp, TimePointViewMessageTokens.FileReceived);
-                Main_MediaPlayerElement.Source = new MediaPlaybackItem(MediaSource.CreateFromStorageFile(kvp.Key.GetFile()));
+                Messenger.Default.Send(info, TimePointViewMessageTokens.FileReceived);
+                Main_MediaPlayerElement.Source = new MediaPlaybackItem(MediaSource.CreateFromStorageFile(info.MusicFile.GetFile()));
             }
         }
 

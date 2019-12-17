@@ -129,6 +129,7 @@
     </Compile>
     <Compile Include="Models\MusicFile.cs" />
     <Compile Include="Models\PageModel.cs" />
+    <Compile Include="Models\SourceInfo.cs" />
     <Compile Include="ViewModels\EditViewModel.cs" />
     <Compile Include="ViewModels\Extensions\ExceptionExtension.cs" />
     <Compile Include="ViewModels\Extensions\StringExtension.cs" />

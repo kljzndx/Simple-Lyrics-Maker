@@ -53,6 +53,15 @@
                         <FontIcon Glyph="&#xE1D2;"/>
                     </AppBarButton.Icon>
                 </AppBarButton>
+
+                <AppBarButton Label="Save file" Command="{Binding SaveFileCommand}">
+                    <AppBarButton.KeyboardAccelerators>
+                        <KeyboardAccelerator Modifiers="Control" Key="S"/>
+                    </AppBarButton.KeyboardAccelerators>
+                    <AppBarButton.Icon>
+                        <SymbolIcon Symbol="Save"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
             </CommandBar.PrimaryCommands>
         </CommandBar>
     </Page.BottomAppBar>

@@ -27,16 +27,16 @@
         </MediaPlayerElement>
 
         <Pivot x:Name="OptionArea_Pivot" Grid.Row="1" SelectionChanged="OptionArea_Pivot_OnSelectionChanged">
-            <PivotItem Header="Lyrics edition">
+            <PivotItem x:Uid="/TimePointPage/Edit_PivotItem">
                 <msctrl:DataGrid x:Name="Lyrics_DataGrid" ItemsSource="{Binding LrcBlock.Lines, Mode=OneWay}" SelectedIndex="{Binding SelectedId, Mode=TwoWay}" AutoGenerateColumns="False" SelectionChanged="Lyrics_DataGrid_OnSelectionChanged">
                     <msctrl:DataGrid.Columns>
-                        <msctrl:DataGridTextColumn Header="Start time" Binding="{Binding StartTime, Mode=OneWay, Converter={StaticResource TimeSpanToLyricsTimeString}}"/>
-                        <msctrl:DataGridTextColumn MinWidth="300" Header="Content" Binding="{Binding Content, Mode=TwoWay}" IsReadOnly="False"/>
+                        <msctrl:DataGridTextColumn x:Uid="/TimePointPage/Time_DataGridTextColumn" Binding="{Binding StartTime, Mode=OneWay, Converter={StaticResource TimeSpanToLyricsTimeString}}"/>
+                        <msctrl:DataGridTextColumn x:Uid="/TimePointPage/Content_DataGridTextColumn" MinWidth="300" Binding="{Binding Content, Mode=TwoWay}" IsReadOnly="False"/>
                     </msctrl:DataGrid.Columns>
                 </msctrl:DataGrid>
             </PivotItem>
 
-            <PivotItem Header="Lyrics preview">
+            <PivotItem x:Uid="/TimePointPage/Preview_PivotItem">
                 <hsctrl:ScrollSubtitlePreview x:Name="Main_ScrollSubtitlePreview" Source="{Binding LrcBlock.Lines, Mode=OneWay}"/>
             </PivotItem>
         </Pivot>
@@ -45,7 +45,7 @@
     <Page.BottomAppBar>
         <CommandBar>
             <CommandBar.PrimaryCommands>
-                <AppBarButton x:Name="SetUpTime_AppBarButton" Label="Set up time" Command="{Binding SetUpTimeCommand}">
+                <AppBarButton x:Uid="/TimePointPage/SetUpTime_AppBarButton" Command="{Binding SetUpTimeCommand}">
                     <AppBarButton.KeyboardAccelerators>
                         <KeyboardAccelerator Key="Space"/>
                     </AppBarButton.KeyboardAccelerators>
@@ -54,7 +54,7 @@
                     </AppBarButton.Icon>
                 </AppBarButton>
 
-                <AppBarButton Label="Save file" Command="{Binding SaveFileCommand}">
+                <AppBarButton x:Uid="/TimePointPage/SaveFile_AppBarButton" Command="{Binding SaveFileCommand}">
                     <AppBarButton.KeyboardAccelerators>
                         <KeyboardAccelerator Modifiers="Control" Key="S"/>
                     </AppBarButton.KeyboardAccelerators>

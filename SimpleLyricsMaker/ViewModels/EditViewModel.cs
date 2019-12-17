@@ -187,20 +187,19 @@ namespace SimpleLyricsMaker.ViewModels
             _canSubmit = false;
             SubmitCommand.RaiseCanExecuteChanged();
 
-            ObservableCollection<LrcLine> lrcLines = (ObservableCollection<LrcLine>) CurrentLyricsFile.Lines;
             string[] originalLines = Original.Trim().ToLines();
             string[] translationLines = Translation.Trim().ToLines();
 
             bool hasTranslation = translationLines.Any(str => !String.IsNullOrWhiteSpace(str));
 
-            lrcLines.Clear();
+            CurrentLyricsFile.Lines.Clear();
             for (var i = 0; i < originalLines.Length; i++)
             {
                 string result = originalLines[i];
                 if (hasTranslation)
                     result += $" {Settings.SplitSymbol} {translationLines[i < translationLines.Length ? i : translationLines.Length]}";
 
-                lrcLines.Add(new LrcLine(TimeSpan.Zero, result));
+                CurrentLyricsFile.Lines.Add(new LrcLine(TimeSpan.Zero, result));
             }
 
             _canSubmit = true;

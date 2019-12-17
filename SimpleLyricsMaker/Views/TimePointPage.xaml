@@ -28,7 +28,7 @@
 
         <Pivot x:Name="OptionArea_Pivot" Grid.Row="1" SelectionChanged="OptionArea_Pivot_OnSelectionChanged">
             <PivotItem Header="Lyrics edition">
-                <msctrl:DataGrid x:Name="Lyrics_DataGrid" ItemsSource="{Binding LrcBlock.Lines, Mode=OneWay}" SelectedItem="{Binding SelectedLine, Mode=TwoWay}" AutoGenerateColumns="False">
+                <msctrl:DataGrid x:Name="Lyrics_DataGrid" ItemsSource="{Binding LrcBlock.Lines, Mode=OneWay}" SelectedIndex="{Binding SelectedId, Mode=TwoWay}" AutoGenerateColumns="False" SelectionChanged="Lyrics_DataGrid_OnSelectionChanged">
                     <msctrl:DataGrid.Columns>
                         <msctrl:DataGridTextColumn Header="Start time" Binding="{Binding StartTime, Mode=OneWay, Converter={StaticResource TimeSpanToLyricsTimeString}}"/>
                         <msctrl:DataGridTextColumn MinWidth="300" Header="Content" Binding="{Binding Content, Mode=TwoWay}" IsReadOnly="False"/>
@@ -46,6 +46,9 @@
         <CommandBar>
             <CommandBar.PrimaryCommands>
                 <AppBarButton x:Name="SetUpTime_AppBarButton" Label="Set up time" Command="{Binding SetUpTimeCommand}">
+                    <AppBarButton.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="Space"/>
+                    </AppBarButton.KeyboardAccelerators>
                     <AppBarButton.Icon>
                         <FontIcon Glyph="&#xE1D2;"/>
                     </AppBarButton.Icon>

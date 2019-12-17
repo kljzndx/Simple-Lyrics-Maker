@@ -4,6 +4,7 @@ using System.Linq;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using HappyStudio.Parsing.Subtitle.Interfaces;
 using HappyStudio.Parsing.Subtitle.LRC;
 using SimpleLyricsMaker.Models;
 
@@ -20,19 +21,19 @@ namespace SimpleLyricsMaker.ViewModels
         private MusicFile _musicFile;
         private LrcBlock _lrcBlock;
 
-        private LrcLine _selectedLine;
+        private int _selectedId;
         private TimeSpan _currentPosition;
 
         public TimePointViewModel()
         {
-            SetUpTimeCommand = new RelayCommand(SetUpTime, () => SelectedLine != null);
+            SetUpTimeCommand = new RelayCommand(SetUpTime, () => SelectedId != -1);
 
             Messenger.Default.Register<KeyValuePair<MusicFile, LrcBlock>>(this, TimePointViewMessageTokens.FileReceived,
             kvp =>
             {
                 MusicFile = kvp.Key;
                 LrcBlock = kvp.Value;
-                SelectedLine = LrcBlock.Lines.FirstOrDefault() as LrcLine;
+                SelectedId = 0;
             });
 
             Messenger.Default.Register<TimeSpan>(this, TimePointViewMessageTokens.PositionChanged, p => CurrentPosition = p);
@@ -50,12 +51,12 @@ namespace SimpleLyricsMaker.ViewModels
             set => Set(ref _lrcBlock, value);
         }
 
-        public LrcLine SelectedLine
+        public int SelectedId
         {
-            get => _selectedLine;
+            get => _selectedId;
             set
             {
-                Set(ref _selectedLine, value);
+                Set(ref _selectedId, value);
 
                 SetUpTimeCommand.RaiseCanExecuteChanged();
             }
@@ -71,7 +72,9 @@ namespace SimpleLyricsMaker.ViewModels
 
         public void SetUpTime()
         {
-            SelectedLine.StartTime = CurrentPosition;
+            LrcBlock.Lines[SelectedId].StartTime = CurrentPosition;
+            if (SelectedId < LrcBlock.Lines.Count - 1)
+                SelectedId++;
         }
     }
 }

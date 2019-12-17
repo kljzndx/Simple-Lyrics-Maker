@@ -80,5 +80,11 @@ namespace SimpleLyricsMaker.Views
                     break;
             }
         }
+
+        private void Lyrics_DataGrid_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (Lyrics_DataGrid.SelectedIndex > 0)
+                Lyrics_DataGrid.ScrollIntoView(Lyrics_DataGrid.SelectedItem, Lyrics_DataGrid.Columns[0]);
+        }
     }
 }

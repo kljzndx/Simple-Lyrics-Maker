@@ -105,6 +105,13 @@ namespace SimpleLyricsMaker.ViewModels
                 if (id == 0)
                     Translation = String.Empty;
             });
+
+            Messenger.Default.Register<SourceInfo>(this, TimePointViewMessageTokens.FileSaved, info =>
+            {
+                _noLyricFiles?.Remove(info.MusicFile);
+                if (!Settings.ShowAll || _allFiles is null)
+                    DisplayFilesList?.Remove(info.MusicFile);
+            });
         }
 
         public MusicFile CurrentMusicFile

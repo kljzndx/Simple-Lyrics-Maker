@@ -60,6 +60,30 @@
                     </AppBarButton.Icon>
                 </AppBarButton>
 
+                <AppBarButton x:Uid="/TimePointPage/DelayAll_AppBarButton">
+                    <AppBarButton.Flyout>
+                        <Flyout>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <Slider x:Name="MillisecondsOfDelay_Slider" x:Uid="/TimePointPage/MillisecondsOfDelay_Slider" Width="150" Minimum="-1000" Maximum="1000" StepFrequency="50"/>
+                                <TextBlock Grid.Column="1" Width="40" Text="{x:Bind MillisecondsOfDelay_Slider.Value, Mode=OneWay}" Margin="4,0" VerticalAlignment="Center"/>
+                                <Button x:Uid="/TimePointPage/ApplyToDelay_Button" Grid.Row="1" Grid.ColumnSpan="2" Command="{Binding DelayAllCommand}" CommandParameter="{Binding ElementName=MillisecondsOfDelay_Slider, Path=Value, Mode=OneWay}" HorizontalAlignment="Right"/>
+                            </Grid>
+                        </Flyout>
+                    </AppBarButton.Flyout>
+                    <AppBarButton.Icon>
+                        <FontIcon Glyph="&#xE759;"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+
                 <AppBarButton x:Uid="/TimePointPage/SaveFile_AppBarButton" Command="{Binding SaveFileCommand}">
                     <AppBarButton.KeyboardAccelerators>
                         <KeyboardAccelerator Modifiers="Control" Key="S"/>

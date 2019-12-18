@@ -117,14 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ApplyToDelay_Button.Content" xml:space="preserve">
+    <value>Apply</value>
+  </data>
   <data name="Content_DataGridTextColumn.Header" xml:space="preserve">
     <value>Content</value>
+  </data>
+  <data name="DelayAll_AppBarButton.Label" xml:space="preserve">
+    <value>Delay all</value>
   </data>
   <data name="Edit_PivotItem.Header" xml:space="preserve">
     <value>Edit</value>
   </data>
   <data name="GoBack_AppBarButton.Label" xml:space="preserve">
     <value>Go back</value>
+  </data>
+  <data name="MillisecondsOfDelay_Slider.Header" xml:space="preserve">
+    <value>Milliseconds</value>
   </data>
   <data name="Preview_PivotItem.Header" xml:space="preserve">
     <value>Preview</value>

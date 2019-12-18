@@ -23,6 +23,8 @@ namespace SimpleLyricsMaker.ViewModels
 
     public class TimePointViewModel : ViewModelBase
     {
+        private bool _canDelay = true;
+
         private StorageFolder _saveFolder;
         private MusicFile _musicFile;
         private LrcBlock _lrcBlock;
@@ -34,6 +36,7 @@ namespace SimpleLyricsMaker.ViewModels
         public TimePointViewModel()
         {
             SetUpTimeCommand = new RelayCommand(SetUpTime, () => SelectedId != -1);
+            DelayAllCommand = new RelayCommand<double>(DelayAll, ms => _canDelay);
             SaveFileCommand = new RelayCommand(async () => await SaveFile(), () => LrcBlock != null);
 
             Messenger.Default.Register<SourceInfo>(this, TimePointViewMessageTokens.FileReceived,
@@ -85,6 +88,7 @@ namespace SimpleLyricsMaker.ViewModels
         }
 
         public RelayCommand SetUpTimeCommand { get; }
+        public RelayCommand<double> DelayAllCommand { get; }
         public RelayCommand SaveFileCommand { get; }
 
         public void SetUpTime()
@@ -92,6 +96,24 @@ namespace SimpleLyricsMaker.ViewModels
             LrcBlock.Lines[SelectedId].StartTime = CurrentPosition;
             if (SelectedId < LrcBlock.Lines.Count - 1)
                 SelectedId++;
+        }
+
+        public void DelayAll(double ms)
+        {
+            _canDelay = false;
+            DelayAllCommand.RaiseCanExecuteChanged();
+
+            bool isAdd = ms > 0;
+
+            TimeSpan msTime = TimeSpan.FromMilliseconds(isAdd ? ms : -ms);
+            foreach (var line in LrcBlock.Lines)
+                if (isAdd)
+                    line.StartTime += msTime;
+                else
+                    line.StartTime -= msTime;
+
+            _canDelay = true;
+            DelayAllCommand.RaiseCanExecuteChanged();
         }
 
         public async Task SaveFile()

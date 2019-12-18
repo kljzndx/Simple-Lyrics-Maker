@@ -45,6 +45,12 @@
     <Page.BottomAppBar>
         <CommandBar>
             <CommandBar.PrimaryCommands>
+                <AppBarButton x:Uid="/TimePointPage/GoBack_AppBarButton" Click="GoBack_AppBarButton_OnClick">
+                    <AppBarButton.Icon>
+                        <SymbolIcon Symbol="Back"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+
                 <AppBarButton x:Uid="/TimePointPage/SetUpTime_AppBarButton" Command="{Binding SetUpTimeCommand}">
                     <AppBarButton.KeyboardAccelerators>
                         <KeyboardAccelerator Key="Space"/>

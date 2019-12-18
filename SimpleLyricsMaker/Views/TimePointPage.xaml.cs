@@ -34,6 +34,7 @@ namespace SimpleLyricsMaker.Views
         public TimePointPage()
         {
             this.InitializeComponent();
+            this.NavigationCacheMode = NavigationCacheMode.Enabled;
 
             Main_MediaPlayerElement.MediaPlayer.PlaybackSession.PositionChanged += PlaybackSession_PositionChanged;
         }
@@ -85,6 +86,11 @@ namespace SimpleLyricsMaker.Views
         {
             if (Lyrics_DataGrid.SelectedIndex > 0)
                 Lyrics_DataGrid.ScrollIntoView(Lyrics_DataGrid.SelectedItem, Lyrics_DataGrid.Columns[0]);
+        }
+
+        private void GoBack_AppBarButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            this.Frame.GoBack();
         }
     }
 }

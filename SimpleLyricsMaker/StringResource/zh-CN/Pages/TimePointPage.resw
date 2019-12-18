@@ -123,6 +123,9 @@
   <data name="Edit_PivotItem.Header" xml:space="preserve">
     <value>编辑</value>
   </data>
+  <data name="GoBack_AppBarButton.Label" xml:space="preserve">
+    <value>返回</value>
+  </data>
   <data name="Preview_PivotItem.Header" xml:space="preserve">
     <value>预览</value>
   </data>

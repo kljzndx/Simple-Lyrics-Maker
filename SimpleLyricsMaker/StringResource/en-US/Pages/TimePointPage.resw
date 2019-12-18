@@ -123,6 +123,9 @@
   <data name="Edit_PivotItem.Header" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="GoBack_AppBarButton.Label" xml:space="preserve">
+    <value>Go back</value>
+  </data>
   <data name="Preview_PivotItem.Header" xml:space="preserve">
     <value>Preview</value>
   </data>

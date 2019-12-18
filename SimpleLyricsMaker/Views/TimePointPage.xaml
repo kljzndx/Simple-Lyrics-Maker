@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:cvt="using:SimpleLyricsMaker.ViewModels.ValueConverters"
     xmlns:hsctrl="using:HappyStudio.Subtitle.Control.UWP"
+    xmlns:hstemp="using:HappyStudio.Subtitle.Control.UWP.ItemTemplates"
     xmlns:msctrl="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -12,6 +13,7 @@
 
     <Page.Resources>
         <cvt:TimeSpanToLyricsTimeString x:Key="TimeSpanToLyricsTimeString"/>
+        <cvt:BilingualStringToNormalString x:Key="BilingualStringToNormalString"/>
     </Page.Resources>
 
     <Grid>
@@ -31,13 +33,19 @@
                 <msctrl:DataGrid x:Name="Lyrics_DataGrid" ItemsSource="{Binding LrcBlock.Lines, Mode=OneWay}" SelectedIndex="{Binding SelectedId, Mode=TwoWay}" AutoGenerateColumns="False" SelectionChanged="Lyrics_DataGrid_OnSelectionChanged">
                     <msctrl:DataGrid.Columns>
                         <msctrl:DataGridTextColumn x:Uid="/TimePointPage/Time_DataGridTextColumn" Binding="{Binding StartTime, Mode=OneWay, Converter={StaticResource TimeSpanToLyricsTimeString}}"/>
-                        <msctrl:DataGridTextColumn x:Uid="/TimePointPage/Content_DataGridTextColumn" MinWidth="300" Binding="{Binding Content, Mode=TwoWay}" IsReadOnly="False"/>
+                        <msctrl:DataGridTextColumn x:Uid="/TimePointPage/Content_DataGridTextColumn" MinWidth="300" Binding="{Binding Content, Mode=TwoWay, Converter={StaticResource BilingualStringToNormalString}}" IsReadOnly="False"/>
                     </msctrl:DataGrid.Columns>
                 </msctrl:DataGrid>
             </PivotItem>
 
             <PivotItem x:Uid="/TimePointPage/Preview_PivotItem">
-                <hsctrl:ScrollSubtitlePreview x:Name="Main_ScrollSubtitlePreview" Source="{Binding LrcBlock.Lines, Mode=OneWay}"/>
+                <hsctrl:ScrollSubtitlePreview x:Name="Main_ScrollSubtitlePreview" Source="{Binding LrcBlock.Lines, Mode=OneWay}">
+                    <hsctrl:ScrollSubtitlePreview.ItemTemplate>
+                        <DataTemplate>
+                            <hstemp:ScrollPreviewItemTemplate Text="{Binding Content, Mode=OneWay, Converter={StaticResource BilingualStringToNormalString}}"/>
+                        </DataTemplate>
+                    </hsctrl:ScrollSubtitlePreview.ItemTemplate>
+                </hsctrl:ScrollSubtitlePreview>
             </PivotItem>
         </Pivot>
     </Grid>

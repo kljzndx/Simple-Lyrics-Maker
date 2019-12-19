@@ -33,7 +33,13 @@
                 <msctrl:DataGrid x:Name="Lyrics_DataGrid" ItemsSource="{Binding LrcBlock.Lines, Mode=OneWay}" SelectedIndex="{Binding SelectedId, Mode=TwoWay}" AutoGenerateColumns="False" SelectionChanged="Lyrics_DataGrid_OnSelectionChanged">
                     <msctrl:DataGrid.Columns>
                         <msctrl:DataGridTextColumn x:Uid="/TimePointPage/Time_DataGridTextColumn" Binding="{Binding StartTime, Mode=OneWay, Converter={StaticResource TimeSpanToLyricsTimeString}}"/>
-                        <msctrl:DataGridTextColumn x:Uid="/TimePointPage/Content_DataGridTextColumn" MinWidth="300" Binding="{Binding Content, Mode=TwoWay, Converter={StaticResource BilingualStringToNormalString}}" IsReadOnly="False"/>
+                        <msctrl:DataGridTextColumn x:Uid="/TimePointPage/Content_DataGridTextColumn" MinWidth="300" Binding="{Binding Content, Mode=TwoWay, Converter={StaticResource BilingualStringToNormalString}}" IsReadOnly="False">
+                            <msctrl:DataGridTextColumn.EditingElementStyle>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="AcceptsReturn" Value="True"/>
+                                </Style>
+                            </msctrl:DataGridTextColumn.EditingElementStyle>
+                        </msctrl:DataGridTextColumn>
                     </msctrl:DataGrid.Columns>
                 </msctrl:DataGrid>
             </PivotItem>

@@ -45,7 +45,7 @@
             </PivotItem>
 
             <PivotItem x:Uid="/TimePointPage/Preview_PivotItem">
-                <hsctrl:ScrollSubtitlePreview x:Name="Main_ScrollSubtitlePreview" Source="{Binding LrcBlock.Lines, Mode=OneWay}">
+                <hsctrl:ScrollSubtitlePreview x:Name="Main_ScrollSubtitlePreview" Source="{Binding LrcBlock.Lines, Mode=OneWay}" ItemClick="Main_ScrollSubtitlePreview_OnItemClick">
                     <hsctrl:ScrollSubtitlePreview.ItemTemplate>
                         <DataTemplate>
                             <hstemp:ScrollPreviewItemTemplate Text="{Binding Content, Mode=OneWay, Converter={StaticResource BilingualStringToNormalString}}"/>

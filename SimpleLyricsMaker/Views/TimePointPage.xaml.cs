@@ -16,7 +16,9 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using GalaSoft.MvvmLight.Messaging;
+using HappyStudio.Parsing.Subtitle.Interfaces;
 using HappyStudio.Parsing.Subtitle.LRC;
+using Microsoft.Toolkit.Uwp.UI.Extensions;
 using SimpleLyricsMaker.Models;
 using SimpleLyricsMaker.ViewModels;
 
@@ -91,6 +93,17 @@ namespace SimpleLyricsMaker.Views
         private void GoBack_AppBarButton_OnClick(object sender, RoutedEventArgs e)
         {
             this.Frame.GoBack();
+        }
+
+        private void Main_ScrollSubtitlePreview_OnItemClick(object sender, ItemClickEventArgs e)
+        {
+            var item = e.ClickedItem as ISubtitleLine;
+            if (item is null)
+                return;
+
+            var session = Main_MediaPlayerElement.MediaPlayer.PlaybackSession;
+            if (session != null)
+                session.Position = item.StartTime;
         }
     }
 }

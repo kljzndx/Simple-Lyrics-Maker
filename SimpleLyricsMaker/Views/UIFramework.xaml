@@ -2,44 +2,11 @@
     x:Class="SimpleLyricsMaker.Views.UIFramework"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:SimpleLyricsMaker"
+    xmlns:local="using:SimpleLyricsMaker.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
 
-    <SplitView x:Name="Root_SplitView" PanePlacement="Left" DisplayMode="Overlay" CompactPaneLength="47">
-        <SplitView.Pane>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-
-                <Button Padding="12" Click="OpenPane_Button_OnClick">
-                    <FontIcon Glyph="&#xE700;" FontSize="{ThemeResource TextStyleLargeFontSize}"/>
-                </Button>
-
-                <ListBox Grid.Row="1" ItemsSource="{Binding PagesList}" SelectedIndex="0" SelectionChanged="HamburgMenu_ListBox_OnSelectionChanged">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-
-                                <FontIcon Glyph="{Binding Icon}" Margin="2,0"/>
-                                <TextBlock Grid.Column="1" Text="{Binding Name}" Margin="20,0,0,0" VerticalAlignment="Center"/>
-                            </Grid>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </Grid>
-        </SplitView.Pane>
-
-        <Frame x:Name="Main_Frame"/>
-    </SplitView>
+    <Frame x:Name="Main_Frame" SourcePageType="local:EditPage"/>
 </Page>

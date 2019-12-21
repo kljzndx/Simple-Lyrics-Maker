@@ -44,6 +44,8 @@ namespace SimpleLyricsMaker.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+            SystemNavigationManager.GetForCurrentView().BackRequested -= TimePointPage_BackRequested;
+            SystemNavigationManager.GetForCurrentView().BackRequested += TimePointPage_BackRequested;
 
             if (e.Parameter is SourceInfo info)
             {
@@ -56,8 +58,15 @@ namespace SimpleLyricsMaker.Views
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);
+            SystemNavigationManager.GetForCurrentView().BackRequested -= TimePointPage_BackRequested;
 
             Main_MediaPlayerElement.MediaPlayer.Pause();
+        }
+
+        private void TimePointPage_BackRequested(object sender, BackRequestedEventArgs e)
+        {
+            e.Handled = true;
+            Frame.GoBack();
         }
 
         private async void PlaybackSession_PositionChanged(MediaPlaybackSession sender, object args)

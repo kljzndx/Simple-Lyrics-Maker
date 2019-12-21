@@ -265,7 +265,7 @@
       <Version>1.5.1</Version>
     </PackageReference>
     <PackageReference Include="HappyStudio.Subtitle.Control.UWP">
-      <Version>1.6.2</Version>
+      <Version>1.6.4</Version>
     </PackageReference>
     <PackageReference Include="HappyStudio.UwpToolsLibrary.Auxiliarys">
       <Version>1.4.0</Version>

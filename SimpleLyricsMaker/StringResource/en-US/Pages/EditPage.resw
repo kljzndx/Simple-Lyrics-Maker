@@ -163,7 +163,7 @@
     <value>Lyrics file properties</value>
   </data>
   <data name="NormalSubtitles_PivotItem.Header" xml:space="preserve">
-    <value>Norma subtitles</value>
+    <value>Normal subtitles</value>
   </data>
   <data name="OpenFile_AppBarButton.Label" xml:space="preserve">
     <value>Open file</value>

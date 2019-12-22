@@ -8,9 +8,22 @@
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:interactions="using:Microsoft.Xaml.Interactions.Core"
     mc:Ignorable="d"
-    DataContext="{Binding Source={StaticResource Locator}, Path=Edit}">
+    DataContext="{Binding Source={StaticResource Locator}, Path=Edit}"
+    SizeChanged="Page_SizeChanged">
 
     <SplitView x:Name="Root_SplitView" DisplayMode="Inline">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="MusicItemSelection_VisualState">
+                    <VisualState.Setters>
+                        <Setter Target="Root_SplitView.IsPaneOpen" Value="False"/>
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <StateTrigger x:Name="MusicItemSelection_Trigger"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <SplitView.Pane>
             <Grid>
                 <Grid.RowDefinitions>
@@ -66,7 +79,7 @@
 
                     <CheckBox x:Name="ShowAllFile_CheckBox" x:Uid="/EditPage/ShowAllFile_CheckBox" Margin="8,4" IsChecked="{Binding Settings.ShowAll, Mode=TwoWay}" Command="{Binding SwitchDisplayCommand}" CommandParameter="{Binding ElementName=ShowAllFile_CheckBox, Path=IsChecked}" HorizontalAlignment="Right"/>
 
-                    <ListView x:Name="MusicFiles_ListView" Grid.Row="1" SelectedItem="{Binding CurrentMusicFile, Mode=TwoWay}" ItemsSource="{Binding DisplayFilesList, Mode=OneWay}">
+                    <ListView x:Name="MusicFiles_ListView" Grid.Row="1" SelectedItem="{Binding CurrentMusicFile, Mode=TwoWay}" ItemsSource="{Binding DisplayFilesList, Mode=OneWay}" SelectionMode="Single" SelectionChanged="MusicFiles_ListView_SelectionChanged">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding FileName}"/>
@@ -195,12 +208,6 @@
             </ScrollViewer>
 
             <StackPanel x:Name="QuickMenu_StackPanel" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <interactivity:Interaction.Behaviors>
-                    <interactions:DataTriggerBehavior Binding="{Binding CurrentLyricsFile, Mode=OneWay}" Value="{x:Null}" ComparisonCondition="NotEqual">
-                        <interactions:ChangePropertyAction PropertyName="Visibility" Value="Collapsed"/>
-                    </interactions:DataTriggerBehavior>
-                </interactivity:Interaction.Behaviors>
-
                 <StackPanel.Background>
                     <SolidColorBrush Color="{ThemeResource SystemBaseHighColor}" Opacity="0.05"/>
                 </StackPanel.Background>
@@ -221,11 +228,18 @@
     <Page.BottomAppBar>
         <CommandBar>
             <CommandBar.PrimaryCommands>
+                <AppBarToggleButton x:Uid="/EditPage/ShowSidePanel_AppBarButton" IsChecked="{x:Bind Root_SplitView.IsPaneOpen, Mode=TwoWay}">
+                    <AppBarToggleButton.Icon>
+                        <FontIcon Glyph="&#xE8A0;"/>
+                    </AppBarToggleButton.Icon>
+                </AppBarToggleButton>
+
                 <AppBarButton x:Uid="/EditPage/OpenFile_AppBarButton" Command="{Binding OpenFileCommand}">
                     <AppBarButton.Icon>
                         <FontIcon Glyph="&#xE1A5;"/>
                     </AppBarButton.Icon>
                 </AppBarButton>
+
                 <AppBarButton x:Uid="/EditPage/OpenFolder_AppBarButton" Command="{Binding OpenFolderCommand}">
                     <AppBarButton.Icon>
                         <FontIcon Glyph="&#xE197;"/>

@@ -89,7 +89,6 @@ namespace SimpleLyricsMaker.ViewModels
                 CurrentMusicFile = null;
                 CurrentLyricsFile = null;
             });
-            Messenger.Default.Register<ObservableCollection<MusicFile>>(this, EditViewMessageTokens.FilesShowed, list => CurrentMusicFile = DisplayFilesList?.FirstOrDefault());
 
             Messenger.Default.Register<string>(this, EditViewMessageTokens.FilePicked, msg =>
             {

@@ -189,6 +189,9 @@
   <data name="ShowAllFile_CheckBox.Content" xml:space="preserve">
     <value>Show all music file</value>
   </data>
+  <data name="ShowSidePanel_AppBarButton.Label" xml:space="preserve">
+    <value>Show side panel</value>
+  </data>
   <data name="Submit_Button.Content" xml:space="preserve">
     <value>Submit and create</value>
   </data>

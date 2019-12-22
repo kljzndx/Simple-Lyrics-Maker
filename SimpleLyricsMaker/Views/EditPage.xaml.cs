@@ -46,6 +46,7 @@ namespace SimpleLyricsMaker.Views
             {
                 Root_SplitView.IsPaneOpen = true;
                 Search_TextBox.Text = String.Empty;
+                QuickMenu_StackPanel.Visibility = Visibility.Collapsed;
                 ShowLoading(FileScanningText1, msg, FileScanningText3);
             });
             Messenger.Default.Register<string>(this, EditViewMessageTokens.FileScanned, msg => HideLoading());
@@ -81,6 +82,18 @@ namespace SimpleLyricsMaker.Views
         {
             if (e.PressCtrl && e.Key == VirtualKey.Enter)
                 Submit_Button.Command?.Execute(null);
+        }
+
+        private void MusicFiles_ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            MusicItemSelection_Trigger.IsActive = false;
+            MusicItemSelection_Trigger.IsActive = e.AddedItems.Any() && this.ActualWidth <= 700;
+        }
+
+        private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (MusicFiles_ListView.SelectedItem != null)
+                Root_SplitView.IsPaneOpen = this.ActualWidth > 700;
         }
     }
 }

@@ -208,6 +208,11 @@
             </ScrollViewer>
 
             <StackPanel x:Name="QuickMenu_StackPanel" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <interactivity:Interaction.Behaviors>
+                    <interactions:DataTriggerBehavior Binding="{Binding CurrentMusicFile, Mode=OneWay}" Value="{x:Null}" ComparisonCondition="NotEqual">
+                        <interactions:ChangePropertyAction PropertyName="Visibility" Value="Collapsed"/>
+                    </interactions:DataTriggerBehavior>
+                </interactivity:Interaction.Behaviors>
                 <StackPanel.Background>
                     <SolidColorBrush Color="{ThemeResource SystemBaseHighColor}" Opacity="0.05"/>
                 </StackPanel.Background>

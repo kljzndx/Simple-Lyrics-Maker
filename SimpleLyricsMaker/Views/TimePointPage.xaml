@@ -22,11 +22,19 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <MediaPlayerElement x:Name="Main_MediaPlayerElement" AutoPlay="True" AreTransportControlsEnabled="True" VerticalAlignment="Top">
-            <MediaPlayerElement.TransportControls>
-                <MediaTransportControls Style="{StaticResource MyMediaTransportControls}" IsCompact="True" IsFullWindowButtonVisible="False" IsFullWindowEnabled="False" IsPlaybackRateButtonVisible="True" IsPlaybackRateEnabled="True" IsZoomButtonVisible="False" IsZoomEnabled="False"/>
-            </MediaPlayerElement.TransportControls>
-        </MediaPlayerElement>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="{Binding MusicFile.FileName, Mode=OneWay}" TextAlignment="Center" Margin="0,2"/>
+            <MediaPlayerElement x:Name="Main_MediaPlayerElement" Grid.Row="1" AutoPlay="True" AreTransportControlsEnabled="True" VerticalAlignment="Top">
+                <MediaPlayerElement.TransportControls>
+                    <MediaTransportControls Style="{StaticResource MyMediaTransportControls}" IsCompact="True" IsFullWindowButtonVisible="False" IsFullWindowEnabled="False" IsPlaybackRateButtonVisible="True" IsPlaybackRateEnabled="True" IsZoomButtonVisible="False" IsZoomEnabled="False"/>
+                </MediaPlayerElement.TransportControls>
+            </MediaPlayerElement>
+        </Grid>
 
         <Pivot x:Name="OptionArea_Pivot" Grid.Row="1" SelectionChanged="OptionArea_Pivot_OnSelectionChanged">
             <PivotItem x:Uid="/TimePointPage/Edit_PivotItem">

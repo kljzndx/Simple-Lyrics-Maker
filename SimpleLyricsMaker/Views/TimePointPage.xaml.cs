@@ -1,26 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using GalaSoft.MvvmLight.Messaging;
 using HappyStudio.Parsing.Subtitle.Interfaces;
-using HappyStudio.Parsing.Subtitle.LRC;
-using Microsoft.Toolkit.Uwp.UI.Extensions;
 using SimpleLyricsMaker.Models;
 using SimpleLyricsMaker.ViewModels;
+using SimpleLyricsMaker.ViewModels.Extensions;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
@@ -51,6 +41,7 @@ namespace SimpleLyricsMaker.Views
             {
                 _lastSelectedId = -1;
                 Messenger.Default.Send(info, TimePointViewMessageTokens.FileReceived);
+                ApplicationView.GetForCurrentView().Title = info.MusicFile.FileName.TrimExtensionName();
                 Main_MediaPlayerElement.Source = new MediaPlaybackItem(MediaSource.CreateFromStorageFile(info.MusicFile.GetFile()));
             }
         }
@@ -59,6 +50,7 @@ namespace SimpleLyricsMaker.Views
         {
             base.OnNavigatedFrom(e);
             SystemNavigationManager.GetForCurrentView().BackRequested -= TimePointPage_BackRequested;
+            ApplicationView.GetForCurrentView().Title = String.Empty;
 
             Main_MediaPlayerElement.MediaPlayer.Pause();
         }

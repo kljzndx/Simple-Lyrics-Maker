@@ -9,7 +9,7 @@
   <Identity
     Name="22643.SimpleLyricsMaker"
     Publisher="CN=7A99FA60-940D-46A9-B3FA-D93317D891AB"
-    Version="1.2.1.0" />
+    Version="1.3.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="d54efbea-c6d8-4bf0-8158-db9d28813dad" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

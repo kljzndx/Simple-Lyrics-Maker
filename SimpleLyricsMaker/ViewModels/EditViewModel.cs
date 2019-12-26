@@ -195,6 +195,12 @@ namespace SimpleLyricsMaker.ViewModels
             string[] originalLines = Original.Trim().ToLines();
             string[] translationLines = Translation.Trim().ToLines();
 
+            if (Settings.IsIgnoreBlankLines)
+            {
+                originalLines = originalLines.Where(s => !String.IsNullOrWhiteSpace(s)).ToArray();
+                translationLines = translationLines.Where(s => !String.IsNullOrWhiteSpace(s)).ToArray();
+            }
+
             bool hasTranslation = translationLines.Any(str => !String.IsNullOrWhiteSpace(str));
 
             CurrentLyricsFile.Lines.Clear();
@@ -202,7 +208,10 @@ namespace SimpleLyricsMaker.ViewModels
             {
                 string result = originalLines[i];
                 if (hasTranslation)
-                    result += $" {Settings.SplitSymbol} {translationLines[i < translationLines.Length ? i : translationLines.Length]}";
+                {
+                    string translation = translationLines[i < translationLines.Length ? i : translationLines.Length];
+                    result += $" {Settings.SplitSymbol} {translation}";
+                }
 
                 CurrentLyricsFile.Lines.Add(new LrcLine(TimeSpan.Zero, result));
             }

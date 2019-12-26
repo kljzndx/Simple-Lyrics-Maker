@@ -33,5 +33,13 @@ namespace SimpleLyricsMaker.ViewModels.Settings
             get => _splitSymbol;
             set => SetSetting(ref _splitSymbol, value);
         }
+
+        [SettingFieldByNormal(nameof(IsIgnoreBlankLines), false)] private bool _isIgnoreBlankLines;
+
+        public bool IsIgnoreBlankLines
+        {
+            get => _isIgnoreBlankLines;
+            set => SetSetting(ref _isIgnoreBlankLines, value);
+        }
     }
 }

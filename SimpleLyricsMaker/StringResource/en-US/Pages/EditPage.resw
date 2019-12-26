@@ -120,6 +120,9 @@
   <data name="BilingualSubtitles_PivotItem.Header" xml:space="preserve">
     <value>Bilingual subtitles</value>
   </data>
+  <data name="IgnoreBlankLines_CheckBox.Content" xml:space="preserve">
+    <value>Ignore blank lines</value>
+  </data>
   <data name="LoadingInfo_FileScanning_Text1" xml:space="preserve">
     <value>Scanning </value>
   </data>

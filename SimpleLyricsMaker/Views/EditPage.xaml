@@ -161,10 +161,11 @@
                         </Grid>
                     </Grid>
 
-                    <Grid Grid.Row="1" Height="400" Margin="0,4" Background="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}">
+                    <Grid Grid.Row="1" Height="420" Margin="0,4" Background="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
                         <Border Style="{ThemeResource TitleBorder_Style}">
@@ -197,6 +198,8 @@
                                 </Grid>
                             </PivotItem>
                         </Pivot>
+
+                        <CheckBox x:Uid="/EditPage/IgnoreBlankLines_CheckBox" Grid.Row="2" Margin="12,0" HorizontalAlignment="Right" IsChecked="{Binding Settings.IsIgnoreBlankLines, Mode=TwoWay}"/>
                     </Grid>
 
                     <Button x:Name="Submit_Button" x:Uid="/EditPage/Submit_Button" Grid.Row="2" HorizontalAlignment="Center" Command="{Binding SubmitCommand}">

@@ -73,6 +73,18 @@
                     </AppBarButton.Icon>
                 </AppBarButton>
 
+                <AppBarButton x:Uid="/TimePointPage/AddLine_AppBarButton" Command="{Binding AddLineCommand}">
+                    <AppBarButton.Icon>
+                        <SymbolIcon Symbol="Add"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+
+                <AppBarButton x:Uid="/TimePointPage/RemoveLine_AppBarButton" Command="{Binding RemoveLineCommand}" CommandParameter="{x:Bind Lyrics_DataGrid.SelectedItem, Mode=OneWay}">
+                    <AppBarButton.Icon>
+                        <SymbolIcon Symbol="Remove"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+
                 <AppBarButton x:Uid="/TimePointPage/SetUpTime_AppBarButton" Command="{Binding SetUpTimeCommand}">
                     <AppBarButton.KeyboardAccelerators>
                         <KeyboardAccelerator Key="Space"/>

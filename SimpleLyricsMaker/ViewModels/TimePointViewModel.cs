@@ -35,6 +35,8 @@ namespace SimpleLyricsMaker.ViewModels
 
         public TimePointViewModel()
         {
+            AddLineCommand = new RelayCommand(AddLine);
+            RemoveLineCommand = new RelayCommand<ISubtitleLine>(l => LrcBlock.Lines.Remove(l), l => l != null);
             SetUpTimeCommand = new RelayCommand(SetUpTime, () => SelectedId != -1);
             DelayAllCommand = new RelayCommand<double>(DelayAll, ms => _canDelay);
             SaveFileCommand = new RelayCommand(async () => await SaveFile(), () => LrcBlock != null);
@@ -87,9 +89,16 @@ namespace SimpleLyricsMaker.ViewModels
             set => Set(ref _currentPosition, value);
         }
 
+        public RelayCommand AddLineCommand { get; }
+        public RelayCommand<ISubtitleLine> RemoveLineCommand { get; }
         public RelayCommand SetUpTimeCommand { get; }
         public RelayCommand<double> DelayAllCommand { get; }
         public RelayCommand SaveFileCommand { get; }
+
+        public void AddLine()
+        {
+            LrcBlock.Lines.Insert(SelectedId < 0 ? LrcBlock.Lines.Count : SelectedId + 1, new LrcLine(CurrentPosition));
+        }
 
         public void SetUpTime()
         {

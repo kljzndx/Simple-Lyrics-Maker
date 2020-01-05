@@ -28,6 +28,9 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
+            <UserControl x:Uid="/TimePointPage/SetUpTime_Border" Width="1" Height="1" IsTabStop="True" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Border x:Uid="/TimePointPage/SetUpTime_Border" Background="Transparent"/>
+            </UserControl>
             <TextBlock Text="{Binding MusicFile.FileName, Mode=OneWay}" TextAlignment="Center" Margin="0,2"/>
             <MediaPlayerElement x:Name="Main_MediaPlayerElement" Grid.Row="1" AutoPlay="True" AreTransportControlsEnabled="True" VerticalAlignment="Top">
                 <MediaPlayerElement.TransportControls>

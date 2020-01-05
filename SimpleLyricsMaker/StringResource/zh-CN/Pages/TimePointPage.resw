@@ -150,6 +150,12 @@
   <data name="SetUpTime_AppBarButton.Label" xml:space="preserve">
     <value>设置时间点</value>
   </data>
+  <data name="SetUpTime_AppBarButton.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>设置时间点 (Space)</value>
+  </data>
+  <data name="SetUpTime_Border.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>设置时间点 (Space)</value>
+  </data>
   <data name="Time_DataGridTextColumn.Header" xml:space="preserve">
     <value>时间</value>
   </data>

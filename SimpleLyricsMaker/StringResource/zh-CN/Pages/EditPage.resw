@@ -123,6 +123,9 @@
   <data name="IgnoreBlankLines_CheckBox.Content" xml:space="preserve">
     <value>忽略空白行</value>
   </data>
+  <data name="LinesCount_Run.Text" xml:space="preserve">
+    <value>行数：</value>
+  </data>
   <data name="LoadingInfo_FileScanning_Text1" xml:space="preserve">
     <value>正在扫描 </value>
   </data>

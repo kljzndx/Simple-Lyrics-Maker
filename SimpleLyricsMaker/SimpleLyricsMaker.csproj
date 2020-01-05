@@ -138,6 +138,7 @@
     <Compile Include="ViewModels\Settings\EditViewSettingProperties.cs" />
     <Compile Include="ViewModels\TimePointViewModel.cs" />
     <Compile Include="ViewModels\ValueConverters\BilingualStringToNormalString.cs" />
+    <Compile Include="ViewModels\ValueConverters\StringToLinesCount.cs" />
     <Compile Include="ViewModels\ValueConverters\TimeSpanToLyricsTimeString.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\Controls\TextArea.xaml.cs">

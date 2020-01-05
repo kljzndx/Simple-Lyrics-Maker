@@ -48,10 +48,10 @@ namespace SimpleLyricsMaker.Views.Controls
         public TextArea()
         {
             this.InitializeComponent();
-            Root_TextBox.DataContext = this;
+            Root_Grid.DataContext = this;
 
-            Root_TextBox.AddHandler(KeyDownEvent, new KeyEventHandler(Root_TextBox_OnKeyDown), true);
-            Root_TextBox.AddHandler(KeyUpEvent, new KeyEventHandler(Root_TextBox_OnKeyUp), true);
+            Main_TextBox.AddHandler(KeyDownEvent, new KeyEventHandler(Main_TextBox_OnKeyDown), true);
+            Main_TextBox.AddHandler(KeyUpEvent, new KeyEventHandler(Main_TextBox_OnKeyUp), true);
         }
 
         public string Header
@@ -75,7 +75,7 @@ namespace SimpleLyricsMaker.Views.Controls
             set => SetValue(TextProperty, value);
         }
 
-        private void Root_TextBox_OnKeyDown(object sender, KeyRoutedEventArgs e)
+        private void Main_TextBox_OnKeyDown(object sender, KeyRoutedEventArgs e)
         {
             switch (e.Key)
             {
@@ -88,7 +88,7 @@ namespace SimpleLyricsMaker.Views.Controls
             }
         }
 
-        private void Root_TextBox_OnKeyUp(object sender, KeyRoutedEventArgs e)
+        private void Main_TextBox_OnKeyUp(object sender, KeyRoutedEventArgs e)
         {
             switch (e.Key)
             {

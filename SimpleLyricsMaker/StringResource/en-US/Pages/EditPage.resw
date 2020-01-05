@@ -123,6 +123,9 @@
   <data name="IgnoreBlankLines_CheckBox.Content" xml:space="preserve">
     <value>Ignore blank lines</value>
   </data>
+  <data name="LinesCount_Run.Text" xml:space="preserve">
+    <value>Lines: </value>
+  </data>
   <data name="LoadingInfo_FileScanning_Text1" xml:space="preserve">
     <value>Scanning </value>
   </data>

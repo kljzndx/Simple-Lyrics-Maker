@@ -165,7 +165,6 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition/>
-                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
                         <Border Style="{ThemeResource TitleBorder_Style}">
@@ -198,15 +197,17 @@
                                 </Grid>
                             </PivotItem>
                         </Pivot>
-
-                        <CheckBox x:Uid="/EditPage/IgnoreBlankLines_CheckBox" Grid.Row="2" Margin="12,0" HorizontalAlignment="Right" IsChecked="{Binding Settings.IsIgnoreBlankLines, Mode=TwoWay}"/>
                     </Grid>
+ 
+                    <RelativePanel Grid.Row="2">
+                        <Button x:Name="Submit_Button" x:Uid="/EditPage/Submit_Button" Command="{Binding SubmitCommand}" RelativePanel.AlignHorizontalCenterWithPanel="True">
+                            <Button.KeyboardAccelerators>
+                                <KeyboardAccelerator Modifiers="Control" Key="Enter" ScopeOwner="{Binding ElementName=LyricsFileInfo_Grid}"/>
+                            </Button.KeyboardAccelerators>
+                        </Button>
 
-                    <Button x:Name="Submit_Button" x:Uid="/EditPage/Submit_Button" Grid.Row="2" HorizontalAlignment="Center" Command="{Binding SubmitCommand}">
-                        <Button.KeyboardAccelerators>
-                            <KeyboardAccelerator Modifiers="Control" Key="Enter" ScopeOwner="{Binding ElementName=LyricsFileInfo_Grid}"/>
-                        </Button.KeyboardAccelerators>
-                    </Button>
+                        <CheckBox x:Uid="/EditPage/IgnoreBlankLines_CheckBox" Margin="12,0,0,0" IsChecked="{Binding Settings.IsIgnoreBlankLines, Mode=TwoWay}" RelativePanel.RightOf="Submit_Button"/>
+                    </RelativePanel>
                 </Grid>
             </ScrollViewer>
 
